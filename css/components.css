@@ -1,8 +1,58 @@
 /*? nav */
 nav{
     width: 100%;
-    height: 65px;
+    height: 75px;
     margin-bottom: 2.5em;
     color: #E8E3E3;
-    background-color: #E8E3E3;
+    display: flex;
+    align-items: center;
+    background-color: white;
+    justify-content: space-between;
+    position: fixed;
+    z-index: 900;
+}
+
+.logo{
+    width: 200px;
+    height: 30px;
+    background-image: url(../images/logo.svg);
+    background-size: cover;
+    margin-left: 2.5em;
+}
+
+.logout{
+    background-color: #415f94;
+    color: white;
+    text-decoration: none;
+    padding: 0.5em 2em;
+    border-radius: 25px;
+    font-family: "Lato-light", sans-serif;
+    justify-self: flex-end;
+}
+
+.account{
+    width: 45px;
+    height: 45px;
+    border-radius: 100%;
+    background-color: #415f94;
+    background-image: url(../images/0bd73bfec9d3f645b06bea1a433fc642.gif);
+    background-size: contain;
+    cursor: pointer;
+    border: #e67a14 3px solid;
+}
+
+.container_nav{
+    display: flex;
+    align-items: center;
+    margin-right: 2.5em;
+    gap: 2em;
+}
+
+.shopping_cart{
+    width: 45px;
+    height: 40px;
+    background-image: url(../images/shopping_cart.svg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    cursor: pointer;
 }

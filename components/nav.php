@@ -1,5 +1,8 @@
 <link rel="stylesheet" href="../css/components.css">
 <nav>
-    <a href="index.php">Logo</a>
-    <a href="logout.php">logout</a>
+    <a href="index.php" class="logo"></a>
+    <div class="container_nav">
+        <div class="shopping_cart"></div>
+        <div class="account"></div>
+    </div>
 </nav>

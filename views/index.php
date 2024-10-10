@@ -26,6 +26,13 @@
         <h2><?php echo $p['title']?>: <?php echo $p['price']?>€</h2>
     </article>
     <?php endforeach?> -->
+    <section class="filter">
+        <a href="">All</a>
+        <a href="">Wand</a>
+        <a href="">Vloer</a>
+        <a href="">Tafel</a>
+        <a href="">Plafond</a>
+    </section>
 
     <section class="products">
         <article>
