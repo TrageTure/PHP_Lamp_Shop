@@ -1,0 +1,77 @@
+body{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0%;
+    background-color: rgb(234, 234, 234);
+}
+
+article{
+    background-color: white;
+    width: fit-content;
+    border-radius:15px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: #50504f;
+    transition: all 200ms ease-out;
+    cursor: pointer;
+}
+
+article:hover{
+    scale: 1.025;
+}
+
+.product_img{
+    width: 300px;
+    height: 300px;
+    background-size: cover;
+    background-position: center;
+}
+
+.groen{
+    background-image: url(../images/lamp_groen.webp);
+}
+
+.blauw{
+    background-image: url(../images/lamp_blauw.webp);
+}
+
+.geel{
+    background-image: url(../images/lamp_geel.webp);
+}
+
+.name{
+    font-family: "Lato-bold", sans-serif;
+    grid-row: 1/2;
+}
+
+.price{
+    font-family: "Lato-bold", sans-serif;
+    grid-row: 1/2;
+    justify-self: flex-end;
+    margin-right: 0.5em;
+    font-size: 18pt;
+    font-weight: 700;
+}
+
+.info_container{
+    display: grid;
+    align-items: center;
+}
+
+.description{
+    width: 280px;
+    grid-column: 1/3;
+    font-family: "Lato-light", sans-serif;
+    font-weight: 300;
+}
+
+.products{
+    justify-self: center;
+    display: grid;
+    width: 90%;
+    grid-template-columns: 1fr 1fr 1Fr 1fr;
+    row-gap: 2em;
+}
