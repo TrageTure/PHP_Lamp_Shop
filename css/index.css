@@ -77,11 +77,13 @@ article:hover{
 .products{
     justify-self: center;
     display: grid;
-    width: 90%;
-    grid-template-columns: 1fr 1fr 1Fr 1fr;
-    row-gap: 2em;
+    width: fit-content;
+    grid-template-columns: 1fr 1fr 1Fr 1fr 1fr;
+    gap: 4em;
     padding-top: 2.5em;
     padding-bottom: 2.5em;
+    justify-items: center;
+    align-items: center;
 }
 
 .filter{
