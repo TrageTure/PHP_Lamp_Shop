@@ -102,8 +102,8 @@ nav{
 }
 
 .shopping_cart_item_img{
-    width: 150px;
-    height: 150px;
+    width: 100px;
+    height: 100px;
     background-image: url(../images/lamp_groen.webp);
     background-size: cover;
     border-radius: 15px;
@@ -130,6 +130,7 @@ nav{
     grid-column: 1/2;
     grid-row: 2/3;
     justify-self: first baseline;
+    font-size: medium;
 }
 
 .delete{
@@ -226,4 +227,8 @@ nav{
 
 .btn_bestellen:hover{
     scale: 1.1;
+}
+
+.shopping_cart_item_name{
+    font-size: medium;
 }

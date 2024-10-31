@@ -1,27 +1,19 @@
 <?php 
-    function loginAvailable($p_email, $p_password){
-        if ($p_email === 'arthur@shop.com' && $p_password === '12345isnotsecure') {
-            return true;
+include_once('../classes/User.php');
+session_start();
+include_once('../classes/User.php');
+if (!empty($_POST)) {
+    try {
+        $user = new User();
+        $user->setEmail($_POST['email']);
+        if ($user->loginAvailable($_POST['password'])) {
+            header('Location: index.php'); 
+            exit();
         }
-        else{
-            return false;
-        }
+    } catch (Exception $e) {
+        $error = $e->getMessage();
     }
-
-    if (!empty($_POST)) {
-        $email = $_POST['email'];
-        $password = $_POST['password'];
-
-        if (loginAvailable($email, $password)) {
-            session_start();
-            $_SESSION['loggedin'] = true;
-            $_SESSION['email'] = $email;
-            header('location: index.php');
-        }
-        else{
-            $error = true;
-        }
-    }
+}
 ?><!DOCTYPE html>
 <html lang="en">
 <head>
@@ -41,11 +33,6 @@
 
     <div class="form_container">
         <h1>Login</h1>
-        <?php if(isset($error)):?>
-        <div class="error">
-            <p>Email of wachtwoord is onjuist. Probeer opnieuw!</p>
-        </div>
-        <?php endif?>
         <form action="" method="post" class="form">
             <div class="login_form">
                 <label for="email">Email:</label>
@@ -60,6 +47,11 @@
             <div class="login_form btn">
                 <input type="submit" value="Login" class="btn">
             </div>
+            <?php if(isset($error)):?>
+            <div class="error">
+                <p><?php echo $error?></p>
+            </div>
+            <?php endif?>
         </form>
     
         <a href="signup.php">Don't have an account yet? Sign up!</a>

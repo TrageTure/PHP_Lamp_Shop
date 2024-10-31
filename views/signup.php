@@ -1,4 +1,19 @@
-<!DOCTYPE html>
+<?php 
+include_once('../classes/User.php');
+if (!empty($_POST)) {
+    try{
+        $user = new User();
+        $user->setFirstname($_POST['firstname']);
+        $user->setLastname($_POST['lastname']);
+        $user->setEmail($_POST['email']);
+        $user->setPassword($_POST['password']);
+        $user->save();
+    }
+    catch (Exception $e) {
+        $error = $e->getMessage();
+    }
+}
+?><!DOCTYPE html>
 <html lang="en">
 <head>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -19,6 +34,16 @@
         <h1>Signup</h1>
         <form action="" method="post" class="form">
             <div class="login_form">
+                <label for="firstname">Firstname:</label>
+                <input type="text" name="firstname" class="input_field">
+            </div>
+
+            <div class="login_form">
+                <label for="lastname">Lastname:</label>
+                <input type="text" name="lastname" class="input_field">
+            </div>
+
+            <div class="login_form">
                 <label for="email">Email:</label>
                 <input type="text" name="email" class="input_field">
             </div>
@@ -27,15 +52,15 @@
                 <label for="password">Password:</label>
                 <input type="password" name="password" class="input_field ">
             </div>
-
-            <div class="login_form">
-                <label for="password">Confirm password:</label>
-                <input type="password" name="password" class="input_field password">
-            </div>
     
             <div class="login_form btn">
                 <input type="submit" value="Sign in" class="btn">
             </div>
+            <?php if(isset($error)):?>
+            <div class="error">
+                <p><?php echo $error ?></p>
+            </div>
+            <?php endif?>
         </form>
     
         <a href="login.php">Allready have an account? Login!</a>

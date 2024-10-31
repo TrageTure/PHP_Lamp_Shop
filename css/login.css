@@ -16,8 +16,8 @@ body{
     height: 100vh;
     position: absolute;
     background-image: url(../images/Image_light_webshop.webp);
-    filter: blur(0rem);
-    animation: blur 2s  ease-out 0.5s forwards 1;
+    filter: blur(0.25em);
+    /* animation: blur 2s  ease-out 0.5s forwards 1; */
 }
 
 .darken{
@@ -39,8 +39,8 @@ body{
     flex-direction: column;
     gap: 2em;
     border: white 2px solid;
-    opacity: 0;
-    animation: slideUp 1.5s  ease-out 1s forwards 1; 
+    opacity: 1;
+    /* animation: slideUp 1.5s  ease-out 1s forwards 1;  */
     align-items: center;
 }
 .form{
@@ -120,4 +120,11 @@ a{
     100%{
         filter: blur(0.25rem);
     }
+}
+
+.error{
+    background-color: rgb(224, 60, 60);
+    padding: 0em 0.75em;
+    border-radius: 5px;
+    color: white;
 }
