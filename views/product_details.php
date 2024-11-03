@@ -21,6 +21,7 @@ $uniqueSizes = $options->getUniqueSizesByProductId($_GET['id']);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/all.css">
     <link rel="stylesheet" href="../css/details.css"> 
     <title>Details</title>
 </head>
@@ -102,8 +103,8 @@ $uniqueSizes = $options->getUniqueSizesByProductId($_GET['id']);
                 <article onclick="window.location.href='product_details.php?id=<?php echo $p['id']; ?>';">
                     <img src='../images/product_images/<?php echo htmlspecialchars($thumbnail); ?>' class="product_img">
                     <div class="info_container">
-                        <h2 class="name"><?php echo htmlspecialchars($p['title']); ?></h2>
-                        <p class="price">€<?php echo htmlspecialchars($p['min_price'])?></p>
+                        <h1 class="name"><?php echo htmlspecialchars($p['title']); ?></h1>
+                        <h2 class="price">€<?php echo htmlspecialchars($p['min_price'])?></h2>
                         <p class="description">
                             <?php echo htmlspecialchars($p['description']); ?>
                         </p>
