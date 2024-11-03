@@ -6,7 +6,6 @@ class Product {
     private $categoryId;
     private $optionsId;
     private $title;
-    private $price;
     private $description;
 
     public function getId() {
@@ -45,15 +44,6 @@ class Product {
         return $this;
     }
 
-    public function getPrice() {
-        return $this->price;
-    }
-
-    public function setPrice($price) {
-        $this->price = $price;
-        return $this;
-    }
-
     public function getThumb() {
         return $this->thumb;
     }
@@ -75,9 +65,8 @@ class Product {
     public function save() {
         try {
             $conn = Db::connect();
-            $statement = $conn->prepare("INSERT INTO products (title, price, product_categories_id, description) VALUES (:title, :price, :category_id, :description)");
+            $statement = $conn->prepare("INSERT INTO products (title, product_categories_id, description) VALUES (:title, :category_id, :description)");
             $statement->bindValue(":title", $this->title);
-            $statement->bindValue(":price", $this->price);
             $statement->bindValue(":category_id", $this->categoryId);
             // $statement->bindValue(":thumb", $this->thumb);
             $statement->bindValue(":description", $this->description);
@@ -92,7 +81,13 @@ class Product {
 
     public function getAllProducts() {
         $conn = Db::connect();
-        $statement = $conn->query("SELECT * FROM products");
+        $statement = $conn->prepare("
+            SELECT p.*, MIN(po.price) AS min_price
+            FROM products p
+            LEFT JOIN product_options po ON p.id = po.product_id
+            GROUP BY p.id
+        ");
+        $statement->execute();
         return $statement->fetchAll(PDO::FETCH_ASSOC);
     }
 
@@ -105,6 +100,13 @@ class Product {
     public function getProductsByCategory($category_id) {
         $conn = Db::connect();
         $statement = $conn->prepare("SELECT * FROM products WHERE product_categories_id = :category_id");
+        $statement = $conn->prepare("
+            SELECT p.*, MIN(po.price) AS min_price
+            FROM products p
+            LEFT JOIN product_options po ON p.id = po.product_id
+            WHERE p.product_categories_id = :category_id
+            GROUP BY p.id
+        ");
         $statement->bindValue(":category_id", $category_id);
         $statement->execute();
         return $statement->fetchAll(PDO::FETCH_ASSOC);
@@ -121,7 +123,6 @@ class Product {
             $this->setId($productData['id']);
             $this->setCategoryId($productData['product_categories_id']);
             $this->setTitle($productData['title']);
-            $this->setPrice($productData['price']);
             $this->setDescription($productData['description']);
             return $this; // Retourneer het huidige object
         } else {

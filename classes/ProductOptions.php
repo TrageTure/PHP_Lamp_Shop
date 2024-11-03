@@ -7,6 +7,7 @@ class Options {
     private $sizeId;
     private $stockAmount;
     private $productId;
+    private $price;
 
     public function getId() {
         return $this->id;
@@ -44,13 +45,23 @@ class Options {
         return $this;
     }
 
+    public function getPrice() {
+        return $this->price;
+    }
+
+    public function setPrice($price) {
+        $this->price = $price;
+        return $this;
+    }
+
     public function save() {
         $conn = Db::connect();
-        $statement = $conn->prepare("INSERT INTO product_options (color_id, size_id, stock_amount, product_id) VALUES (:color_id, :size_id, :stock_amount, :product_id)");
-        $statement->bindValue(":color_id", $this->getColorId());
-        $statement->bindValue(":size_id", $this->getSizeId());
-        $statement->bindValue(":stock_amount", $this->getStockAmount());
-        $statement->bindValue(":product_id", $this->productId); // Voeg product_id toe
+        $statement = $conn->prepare("INSERT INTO product_options (product_id, color_id, size_id, stock_amount, price) VALUES (:product_id, :color_id, :size_id, :stock_amount, :price)");
+        $statement->bindValue(":product_id", $this->productId);
+        $statement->bindValue(":color_id", $this->colorId);
+        $statement->bindValue(":size_id", $this->sizeId);
+        $statement->bindValue(":stock_amount", $this->stockAmount);
+        $statement->bindValue(":price", $this->price);
         $statement->execute();
     }
 
@@ -121,6 +132,16 @@ class Options {
         $statement->execute();
         $result = $statement->fetch(PDO::FETCH_ASSOC);
         return $result !== false ? $result : null;
+    }
+
+    public function getPriceByColorAndSize($productId, $colorId, $sizeId) {
+        $conn = Db::connect();
+        $statement = $conn->prepare("SELECT price FROM product_options WHERE product_id = :product_id AND color_id = :color_id AND size_id = :size_id");
+        $statement->bindValue(":product_id", $productId, PDO::PARAM_INT);
+        $statement->bindValue(":color_id", $colorId, PDO::PARAM_INT);
+        $statement->bindValue(":size_id", $sizeId, PDO::PARAM_INT);
+        $statement->execute();
+        return $statement->fetch(PDO::FETCH_ASSOC)['price'];
     }
 }
 ?>
