@@ -49,7 +49,7 @@ $categories = $product->getAllCategories();
                 <img src='../images/product_images/<?php echo htmlspecialchars($thumbnail); ?>' class="product_img">
                 <div class="info_container">
                     <h2 class="name"><?php echo htmlspecialchars($p['title']); ?></h2>
-                    <p class="price"><?php echo htmlspecialchars($p['price']); ?>$</p>
+                    <p class="price">€<?php echo htmlspecialchars($p['min_price'])?></p>
                     <p class="description">
                         <?php echo htmlspecialchars($p['description']); ?>
                     </p>

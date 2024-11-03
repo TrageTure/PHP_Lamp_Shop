@@ -3,6 +3,7 @@ include_once('../classes/Product.php');
 include_once('../classes/ProductOptions.php');
 include_once('../classes/Pictures.php');
 
+// Fetch categories, colors, and sizes
 $category = new Product();
 $categories = $category->getAllCategories();
 
@@ -19,25 +20,28 @@ if (!empty($_POST['product_id'])) {
     }
 }
 
-if (!empty($_POST['title']) && !empty($_POST['price']) && !empty($_POST['category_id']) && isset($_FILES['images'])) {
+if (!empty($_POST['title']) && !empty($_POST['category_id']) && isset($_FILES['images'])) {
     try {
-        // Product aanmaken
+        // Create product
         $product = new Product();
         $product->setTitle($_POST['title']);
-        $product->setPrice($_POST['price']);
         $product->setCategoryId($_POST['category_id']);
         $product->setDescription($_POST['description']);
         
-        // Sla het product op om het product ID te verkrijgen
+        // Save the product and get its ID
         $product->save();
         $productId = $product->getId();
+
+        if (!$productId) {
+            throw new Exception("Product ID is not generated. Check the product save process.");
+        }
         
-        // Thumbnail en images opslaan
+        // Handle Images
         $uploadedImages = $_FILES['images'];
         if (count($uploadedImages['name']) > 4) {
             throw new Exception("Je kunt maximaal 4 afbeeldingen uploaden.");
         }
-        
+
         $imageInstance = new Images();
         for ($i = 0; $i < count($uploadedImages['name']); $i++) {
             $imageName = uniqid() . "_" . basename($uploadedImages['name'][$i]);
@@ -48,33 +52,32 @@ if (!empty($_POST['title']) && !empty($_POST['price']) && !empty($_POST['categor
                 throw new Exception("Afbeelding kon niet worden geüpload.");
             }
         }
-        
-        if (!empty($_POST['colors']) && !empty($_POST['sizes']) && isset($_POST['stock_amount'])) {
+
+        // Handle Options
+        if (!empty($_POST['colors']) && !empty($_POST['sizes']) && isset($_POST['stock_amount']) && isset($_POST['price'])) {
             foreach ($_POST['colors'] as $colorId) {
                 foreach ($_POST['sizes'] as $sizeId) {
                     $productOption = new Options();
                     $productOption->setProductId($productId);
                     $productOption->setColorId($colorId);
                     $productOption->setSizeId($sizeId);
-                    $productOption->setStockAmount($_POST['stock_amount'][$colorId][$sizeId]); // Aangepast om de voorraad voor elke combinatie in te stellen
+                    $productOption->setStockAmount($_POST['stock_amount'][$colorId][$sizeId]);
+                    $productOption->setPrice($_POST['price'][$colorId][$sizeId]);
                     $productOption->save();
                 }
             }
         }
-        
+
         echo "Product succesvol toegevoegd!";
-        
     } catch (Exception $e) {
         $error = $e->getMessage();
     }
 }
 
-// Ophalen van alle producten om in de dropdown te tonen
+// Fetch all products for deletion dropdown
 $productInstance = new Product();
 $products = $productInstance->getAllProducts();
-?>
-
-<!DOCTYPE html>
+?><!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -87,10 +90,6 @@ $products = $productInstance->getAllProducts();
         <div class="upload_form">
             <label for="title">Title:</label>
             <input type="text" name="title" class="input_field">
-        </div>
-        <div class="upload_form">
-            <label for="price">Price:</label>
-            <input type="text" name="price" class="input_field">
         </div>
         <!-- Maximaal 4 images -->
         <div class="upload_form">
@@ -127,12 +126,13 @@ $products = $productInstance->getAllProducts();
             
             <br>
             
-            <p>Stock Amount for Each Combination:</p>
+            <p>Stock Amount and Price for Each Combination:</p>
             <?php foreach($allcolors as $ac): ?>
                 <?php foreach($allSizes as $as): ?>
                     <div class="upload_form">
                         <label><?php echo $ac['color_name'] . " - " . $as['size']; ?>:</label>
-                        <input type="number" name="stock_amount[<?php echo $ac['id']; ?>][<?php echo $as['id']; ?>]" class="input_field">
+                        <input type="number" name="stock_amount[<?php echo $ac['id']; ?>][<?php echo $as['id']; ?>]" class="input_field" placeholder="Stock">
+                        <input type="number" step="0.01" name="price[<?php echo $ac['id']; ?>][<?php echo $as['id']; ?>]" class="input_field" placeholder="Price">
                     </div>
                 <?php endforeach; ?>
             <?php endforeach; ?>

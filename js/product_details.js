@@ -2,6 +2,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const colorRadios = document.querySelectorAll('input[name="color"]');
     const sizeRadios = document.querySelectorAll('input[name="size"]');
     const stockDisplay = document.getElementById('stock_display');
+    const priceDisplay = document.getElementById('price_display');
 
     function updateStock() {
         const selectedColor = document.querySelector('input[name="color"]:checked');
@@ -15,6 +16,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 .then(response => response.json())
                 .then(data => {
                     stockDisplay.textContent = `${data.stock_amount}`;
+                    priceDisplay.textContent = `$${data.price}`;
                 })
                 .catch(error => {
                     console.error('Error fetching stock:', error);

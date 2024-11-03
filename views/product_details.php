@@ -41,7 +41,7 @@ $uniqueSizes = $options->getUniqueSizesByProductId($_GET['id']);
             <section>
                 <div class="container_title_price">
                     <h1><?php echo htmlspecialchars($product->getTitle()); ?></h1>
-                    <h2>€<?php echo htmlspecialchars($product->getPrice()); ?></h2>
+                    <h2><span id="price_display"></span></h2>
                 </div>
                 <p><?php echo htmlspecialchars($product->getDescription()); ?></p>
             </section>
@@ -92,6 +92,20 @@ $uniqueSizes = $options->getUniqueSizesByProductId($_GET['id']);
 
         </div>
     </main>
+    <section class="recomended">
+        <h2>Recomended:</h2>
+        <article class="recomended_article">
+            <img src="" alt="" class="product_img">
+            <div class="info_container">
+                <h2 class="name"></h2>
+                <p class="price"></p>
+                <p class="description"></p>
+
+            </div>
+        </article>
+
+
+    </section>
     <script>
         const productId = <?php echo json_encode($_GET['id']); ?>;
     </script>
