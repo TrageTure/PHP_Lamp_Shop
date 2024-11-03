@@ -1,5 +1,4 @@
 <?php 
-include_once('../classes/User.php');
 session_start();
 include_once('../classes/User.php');
 if (!empty($_POST)) {
