@@ -66,14 +66,33 @@ class User{
         return $this;
     }
 
-    public function save(){
+    public function save() {
         $conn = Db::connect();
-        $statement = $conn->prepare("insert into users (first_name, last_name, email, password) values (:firstname, :lastname, :email, :password)");
+    
+        // Controleer of de gebruiker al bestaat
+        if ($this->userExists()) {
+            throw new Exception('Email already in use');
+        } 
+    
+        $statement = $conn->prepare("INSERT INTO users (first_name, last_name, email, password) VALUES (:firstname, :lastname, :email, :password)");
         $statement->bindParam(':firstname', $this->firstname);
         $statement->bindParam(':lastname', $this->lastname);
         $statement->bindParam(':email', $this->email);
         $statement->bindParam(':password', $this->password);
         $statement->execute();
+    
+        // Redirect na succesvolle registratie
+        header('Location: login.php');
+        exit();
+    }
+    
+    // Aparte methode om te controleren of een gebruiker al bestaat
+    private function userExists() {
+        $conn = Db::connect();
+        $statement = $conn->prepare('SELECT * FROM users WHERE email = :email');
+        $statement->bindParam(':email', $this->email);
+        $statement->execute();
+        return $statement->fetch() !== false;
     }
 
     public function loginAvailable($password){
@@ -82,9 +101,9 @@ class User{
         $statement->bindParam(':email', $this->email);
         $statement->execute();
         $user = $statement->fetch();
-        
-        if ($user) {
-            if (password_verify($password, $user['password'])) {
+    
+        if ($user && isset($user['PASSWORD']) && !is_null($user['PASSWORD'])) {
+            if (password_verify($password, $user['PASSWORD'])) {
                 $_SESSION['loggedin'] = true;
                 $_SESSION['email'] = $this->email;
                 return true;
