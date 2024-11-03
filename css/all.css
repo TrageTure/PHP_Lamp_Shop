@@ -7,7 +7,7 @@ body {
     align-items: center;
 }
 
-h1, h2 {
+h1, h2, h3{
     margin: 0;
     padding: 0;
     margin-bottom: 1em;
@@ -23,7 +23,10 @@ h2 {
     font-size: 24pt;
     color: #415f94;
 }
-
+h3 {
+    font-size: 18pt;
+    color: #415f94;
+}
 p {
     font-size: 14pt;
     margin: 0;

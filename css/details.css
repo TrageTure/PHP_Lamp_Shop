@@ -88,7 +88,6 @@ label{
     display: flex;
     gap: 0.5em;
     align-items: center;
-    /* justify-content: space-around; */
     cursor: pointer;
     padding: 0.5em;
     border: #e67a14 3px solid;
@@ -189,50 +188,29 @@ label[for="rood"]::before {
 #large:checked + label::before {
     background-color: #415f94;
 }
+.delivery_options{
+    align-self: start;
+}
 .delivery_radio{
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     gap: 1em;
     justify-content: center;
 }
-.delivery_radio input[type="radio"]{
-    display: none;
+.standard h3, .express h3{
+    margin: 0;
+    margin-bottom: 0.25em;
 }
-.delivery_radio label{
-    display: flex;
-    gap: 0.5em;
-    width: 100px;
-    align-items: center;
-    cursor: pointer;
-    padding: 0.5em;
-    border: #e67a14 3px solid;
+
+.standard{
+    outline: #e67a14 solid 3px;
     border-radius: 10px;
-    width: fit-content;
-    font-weight: 800;
+    padding: 0.25em;
 }
-.delivery_radio label::before {
-    content: "";
-    display: inline-block;
-    width: 12px;
-    height: 12px;
-    border-radius: 50%; 
-    background-color: transparent; 
-    cursor: pointer;
-    margin-right: 8px;
-}
-.delivery_radio label[for="express"]::before {
+.express{
     outline: #e67a14 solid 3px;
-    border: white 3px solid;
-}
-.delivery_radio label[for="standard"]::before {
-    outline: #e67a14 solid 3px;
-    border: white 3px solid;
-}
-#express:checked + label::before {
-    background-color: #415f94;
-}
-#standard:checked + label::before {
-    background-color: #415f94;
+    border-radius: 10px;
+    padding: 0.25em;
 }
 .add_to{
     width: 35px;
@@ -249,7 +227,6 @@ label[for="rood"]::before {
     text-align: center;
 }
 .container_price_cart{
-    margin-top: 1em;
     display: flex;
     width: min-content;
     height: 45px;
@@ -288,18 +265,23 @@ label[for="rood"]::before {
     cursor: pointer;
 }
 .deliver_amount{
-    display: grid;
+    display: flex;
+    flex-direction: column;
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 1fr;
     align-items: center;
-    gap: 1em;
+    gap: 2em;
 }
 .container_stock_price{
     height: 100%;
     width: 100%;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     justify-content: space-between;
+    align-items: center;
+}
+.container_stock_price h2{
+    margin: 0;
 }
 .span_color{
     color: #e67a14; 

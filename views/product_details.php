@@ -69,11 +69,14 @@ $uniqueSizes = $options->getUniqueSizesByProductId($_GET['id']);
                 <div class="delivery_options">
                     <h2>Delivery:</h2>
                     <div class="delivery_radio"> 
-                        <input type="radio" name="delivery" id="standard" />
-                        <label for="standard">Standard (free)</label>
-    
-                        <input type="radio" name="delivery" id="express" />
-                        <label for="express">Express (+€10,99)</label>
+                        <div class="standard">
+                            <h3>Standard (gratis)</h3>
+                            <p>Ten laatste geleverd binnen 7 werkdagen</p>
+                        </div>
+                        <div class="express">
+                            <h3>Express (€7.99)</h3>
+                            <p>Ten laatste geleverd binnen 3 werkdagen</p>
+                        </div>
                     </div>
                 </div>
                 <div class="container_stock_price">
