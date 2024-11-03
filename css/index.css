@@ -18,6 +18,8 @@ article{
     transition: all 200ms ease-out;
     cursor: pointer;
     box-shadow: 10px 10px 5px 0px rgb(234, 234, 234);
+    width: 300px;
+    height: 525px;
 }
 
 article:hover{
@@ -30,6 +32,7 @@ article:hover{
     height: 300px;
     background-size: cover;
     background-position: center;
+    object-fit: cover;
 }
 
 .groen{
@@ -48,6 +51,9 @@ article:hover{
     font-family: "Lato-bold", sans-serif;
     grid-row: 1/2;
     color: #e67a14;
+    margin-left: 0.25em;
+    max-width: 90%;
+    text-overflow: ellipsis;
 }
 
 .price{
@@ -58,6 +64,7 @@ article:hover{
     font-size: 18pt;
     font-weight: 700;
     color: #415f94;
+    margin-right: 0.25em;
 }
 
 .info_container{
@@ -72,6 +79,8 @@ article:hover{
     font-weight: 300;
     margin: 0;
     margin-bottom: 1em;
+    max-height: 6em;
+    text-overflow: ellipsis;
 }
 
 .products{

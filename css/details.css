@@ -1,0 +1,314 @@
+body{
+    background-color: #f5f5f5;
+    font-family: "Lato-bold", sans-serif;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+}
+h1{
+    font-size: 32pt;
+    margin: 0;
+    padding: 0;
+    color: #e67a14;
+    margin-bottom: 1em;
+}
+h2{
+    font-size: 24pt;
+    margin: 0;
+    padding: 0;
+    color: #415f94;
+    margin-bottom: 1em;
+}
+p{
+    font-size: 14pt;
+    margin: 0;
+    padding: 0;
+    color: #50504f;
+}
+label{
+    color: #50504f;
+}
+section{
+    background-color: #f7f5f5;
+    padding: 1em;
+    border-radius: 15px;
+    /* border: #415f94 3px solid;  */
+    margin-bottom: 1em;
+}
+.main{
+    margin-top: 105px;
+    margin-bottom: 30px;
+    overflow: show;
+    display: flex;
+    justify-content: space-evenly;
+    gap: 2em;
+    max-width: 95%;
+}
+.left{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 2em;
+    padding: 2em;
+    border-radius: 15px;
+    background-color: white;
+    box-shadow: 10px 10px 5px 0px rgb(234, 234, 234);
+    align-items: center;
+    justify-content: center;
+}
+.image{
+    width: 350px;
+    height: 350px;
+    border-radius: 15px;
+    background-size: cover;
+    background-position: center;
+    object-fit: cover;
+}
+.right{
+    background-color: white;
+    max-width: 35%;
+    padding: 2em;
+    border-radius: 15px;
+    box-shadow: 10px 10px 5px 0px rgb(234, 234, 234);
+}
+.right h1{
+    font-size: 32pt;
+    padding: 0;
+    color: #e67a14;
+}
+.option_color{
+    display: flex;
+    flex-direction: column;
+}
+input[type="radio"]{
+    display: none;
+}
+label{
+    display: flex;
+    gap: 0.5em;
+    align-items: center;
+    /* justify-content: space-around; */
+    cursor: pointer;
+    padding: 0.5em;
+    border: #e67a14 3px solid;
+    border-radius: 10px;
+    width: fit-content;
+    font-weight: 800;
+}
+label::before {
+    content: "";
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%; 
+    background-color: transparent; 
+    cursor: pointer;
+    margin-right: 8px;
+}
+label[for="geel"]::before {
+    border: white 3px solid;
+    outline: rgb(255, 225, 0) solid 3px;
+}
+label[for="blauw"]::before {
+    border: white 3px solid;
+    outline: #3a5fa9 solid 3px;
+}
+label[for="groen"]::before {
+    border: white 3px solid;
+    outline: #4d9d47 solid 3px;
+}
+label[for="rood"]::before {
+    outline: #b54444 solid 3px; 
+    border: white 3px solid;
+}
+#geel:checked + label::before {
+    background-color: rgb(255, 225, 0);
+}
+#blauw:checked + label::before {
+    background-color: #3a5fa9;
+}
+#groen:checked + label::before {
+    background-color: #4d9d47;
+}
+#rood:checked + label::before {
+    background-color: #b54444;
+}
+.color_radio{
+    display: flex;
+    gap: 1em;
+    justify-content: center;
+}
+.size_radio{
+    display: flex;
+    gap: 1em;
+    justify-content: center;
+}
+.size_radio input[type="radio"]{
+    display: none;
+}
+.size_radio label{
+    display: flex;
+    gap: 0.5em;
+    align-items: center;
+    cursor: pointer;
+    padding: 0.5em;
+    border: #e67a14 3px solid;
+    border-radius: 10px;
+    width: fit-content;
+    font-weight: 800;
+}
+.size_radio label::before {
+    content: "";
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%; 
+    background-color: transparent; 
+    cursor: pointer;
+    margin-right: 8px;
+}
+.size_radio label[for="small"]::before {
+    outline: #e67a14 solid 3px;
+    border: white 3px solid;
+}
+.size_radio label[for="medium"]::before {
+    outline: #e67a14 solid 3px;
+    border: white 3px solid;
+}
+.size_radio label[for="large"]::before {
+    outline: #e67a14 solid 3px;
+    border: white 3px solid;
+}
+#small:checked + label::before {
+    background-color: #415f94;
+}
+#medium:checked + label::before {
+    background-color: #415f94;
+}
+#large:checked + label::before {
+    background-color: #415f94;
+}
+.delivery_radio{
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+    justify-content: center;
+}
+.delivery_radio input[type="radio"]{
+    display: none;
+}
+.delivery_radio label{
+    display: flex;
+    gap: 0.5em;
+    width: 100px;
+    align-items: center;
+    cursor: pointer;
+    padding: 0.5em;
+    border: #e67a14 3px solid;
+    border-radius: 10px;
+    width: fit-content;
+    font-weight: 800;
+}
+.delivery_radio label::before {
+    content: "";
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%; 
+    background-color: transparent; 
+    cursor: pointer;
+    margin-right: 8px;
+}
+.delivery_radio label[for="express"]::before {
+    outline: #e67a14 solid 3px;
+    border: white 3px solid;
+}
+.delivery_radio label[for="standard"]::before {
+    outline: #e67a14 solid 3px;
+    border: white 3px solid;
+}
+#express:checked + label::before {
+    background-color: #415f94;
+}
+#standard:checked + label::before {
+    background-color: #415f94;
+}
+.add_to{
+    width: 35px;
+    height: 30px;
+    background-image: url(../images/shopping_cart+.svg);
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    margin: 1em;
+    cursor: pointer;
+}
+.amount_count{
+    font-size: 20pt;
+    text-align: center;
+}
+.container_price_cart{
+    margin-top: 1em;
+    display: flex;
+    width: min-content;
+    height: 45px;
+    align-items: center;
+    border-radius: 30px;
+    overflow: hidden;
+    border: #e67a14 3px solid;
+    grid-column: 2/3;
+    grid-row: 1/2;
+}
+.add{
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    border-right: #415f94 3px solid;
+    text-align: center;
+    gap: 1em;
+    padding: 1em;
+}
+.plus{
+    width: 30px;
+    height: 30px;
+    background-image: url(../images/plus-circle-f.svg);
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    cursor: pointer;
+}
+.minus{
+    width: 30px;
+    height: 30px;
+    background-image: url(../images/minus-circle-f.svg);
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    cursor: pointer;
+}
+.deliver_amount{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr;
+    align-items: center;
+    gap: 1em;
+}
+.container_stock_price{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.span_color{
+    color: #e67a14; 
+}
+.color2{
+    color: #415f94;
+}
+.container_title_price{
+    display: flex;
+    justify-content: space-between;
+    align-content: center;
+    color: #e67a14;
+}
