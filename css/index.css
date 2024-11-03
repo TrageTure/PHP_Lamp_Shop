@@ -35,18 +35,6 @@ article:hover{
     object-fit: cover;
 }
 
-.groen{
-    background-image: url(../images/lamp_groen.webp);
-}
-
-.blauw{
-    background-image: url(../images/lamp_blauw.webp);
-}
-
-.geel{
-    background-image: url(../images/lamp_geel.webp);
-}
-
 .name{
     font-family: "Lato-bold", sans-serif;
     grid-row: 1/2;

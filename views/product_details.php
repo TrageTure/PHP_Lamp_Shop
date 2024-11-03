@@ -11,12 +11,11 @@ include_once('../classes/ProductOptions.php');
 
 $product = new Product();
 $product->getProductById($_GET['id']);
+$allProductsByCategory = $product->getProductsByCategory($product->getCategoryId());
 
 $options = new Options();
 $uniqueColors = $options->getUniqueColorsByProductId($_GET['id']); 
 $uniqueSizes = $options->getUniqueSizesByProductId($_GET['id']);
-
-//stock_color_size = $options->getStockAmountByColorAndSize($_GET['id'], $colorId, $sizeId);
 ?><!DOCTYPE html>
 <html lang="en">
 <head>
@@ -93,18 +92,25 @@ $uniqueSizes = $options->getUniqueSizesByProductId($_GET['id']);
         </div>
     </main>
     <section class="recomended">
-        <h2>Recomended:</h2>
-        <article class="recomended_article">
-            <img src="" alt="" class="product_img">
-            <div class="info_container">
-                <h2 class="name"></h2>
-                <p class="price"></p>
-                <p class="description"></p>
-
-            </div>
-        </article>
-
-
+        <h2>Meer producten zoals deze:</h2>
+        <section class="products">
+            <?php foreach($allProductsByCategory as $p):?>
+                <?php
+                $thumb = new Images();
+                $thumbnail = $thumb->getThumbnailByProductId($p['id']);
+                ?>
+                <article onclick="window.location.href='product_details.php?id=<?php echo $p['id']; ?>';">
+                    <img src='../images/product_images/<?php echo htmlspecialchars($thumbnail); ?>' class="product_img">
+                    <div class="info_container">
+                        <h2 class="name"><?php echo htmlspecialchars($p['title']); ?></h2>
+                        <p class="price">€<?php echo htmlspecialchars($p['min_price'])?></p>
+                        <p class="description">
+                            <?php echo htmlspecialchars($p['description']); ?>
+                        </p>
+                    </div>
+                </article>
+            <?php endforeach?>
+        </section>
     </section>
     <script>
         const productId = <?php echo json_encode($_GET['id']); ?>;
