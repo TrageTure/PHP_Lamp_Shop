@@ -79,6 +79,7 @@ article:hover {
 
 .name, .price {
     grid-row: 1 / 2;
+    margin: 0;
 }
 
 .price {
@@ -88,9 +89,12 @@ article:hover {
 
 .info_container {
     display: grid;
+    grid-template-rows: 50px 150px;
     align-items: center;
     padding: 0.5em;
-    text-overflow: ellipsis;
+    text-overflow: scroll;
+    max-height: 200px;
+    height: 225px;
 }
 
 .description {
@@ -99,9 +103,11 @@ article:hover {
     font-family: "Lato-light", sans-serif;
     font-weight: 300;
     margin: 0;
-    margin-bottom: 1em;
     max-height: 6em;
+    max-height: 100%;
+    overflow: hidden;
     text-overflow: ellipsis;
+    align-self: self-start;
 }
 
 .products {
