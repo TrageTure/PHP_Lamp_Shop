@@ -239,7 +239,7 @@ label[for="rood"]::before {
     grid-column: 2/3;
     grid-row: 1/2;
 }
-.add{
+#add{
     display: flex;
     justify-content: space-evenly;
     align-items: center;

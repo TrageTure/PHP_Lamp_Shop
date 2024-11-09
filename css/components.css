@@ -90,7 +90,8 @@ nav{
     transition: opacity 0.3s ease-in-out;
     pointer-events: none;
     display: flex;
-    /* max-height: 600px;*/
+    border: #e67a14 3px solid;
+    z-index: 1000;
 
 }
 
@@ -141,17 +142,6 @@ nav{
     background-size: cover;
     background-repeat: no-repeat;
     cursor: pointer;
-}
-
-.divider{
-    height: 25px;
-    width: 30px;
-    background-repeat: no-repeat;
-    background-position: bottom;
-    background-image: url(../images/shopping_cart_divider.svg);
-    position: absolute;
-    top: -22px;
-    right: 15px;
 }
 
 .item{
@@ -216,7 +206,7 @@ nav{
 .btn_bestellen{
     background-color: #e67a14;
     color: white;
-    padding: 0.75em 2em;
+    padding: 0.5em 1em;
     width: fit-content;
     border-radius: 15px;
     cursor: pointer;

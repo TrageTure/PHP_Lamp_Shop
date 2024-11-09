@@ -17,8 +17,12 @@ $options = new Options();
 $uniqueColors = $options->getUniqueColorsByProductId($_GET['id']); 
 $uniqueSizes = $options->getUniqueSizesByProductId($_GET['id']);
 
-//als er op de div add_to wordt geklikt, wordt de functie new Orderline() aangeroepen
-//deze functie maakt een nieuwe orderline aan
+// $orderline = new Orderline();
+// $orderline->setOrderId($order->getId());
+// $orderline->setProductId($product->getId());
+// $orderline->setAmount($amount);
+// $orderline->setPricePerUnit($product->getPrice());
+// $orderline->save();
 
 ?><!DOCTYPE html>
 <html lang="en">
@@ -87,7 +91,7 @@ $uniqueSizes = $options->getUniqueSizesByProductId($_GET['id']);
                     <h2 class="stock">In stock: <span class="span_color" id="stock_display"></span></h2>
     
                     <div class="container_price_cart">
-                        <div class="add">
+                        <div id="add">
                             <p class="minus"></p>
                             <p class="amount_count">0</p>
                             <p class="plus"></p>

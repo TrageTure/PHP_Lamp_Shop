@@ -1,8 +1,12 @@
+const colorRadios = document.querySelectorAll('input[name="color"]');
+const sizeRadios = document.querySelectorAll('input[name="size"]');
+const stockDisplay = document.getElementById('stock_display');
+const priceDisplay = document.getElementById('price_display');
+const add_to = document.getElementById('add');
+
+let add_amount = 0;
+
 document.addEventListener('DOMContentLoaded', function() {
-    const colorRadios = document.querySelectorAll('input[name="color"]');
-    const sizeRadios = document.querySelectorAll('input[name="size"]');
-    const stockDisplay = document.getElementById('stock_display');
-    const priceDisplay = document.getElementById('price_display');
 
     function updateStock() {
         const selectedColor = document.querySelector('input[name="color"]:checked');
@@ -27,4 +31,20 @@ document.addEventListener('DOMContentLoaded', function() {
 
     colorRadios.forEach(radio => radio.addEventListener('change', updateStock));
     sizeRadios.forEach(radio => radio.addEventListener('change', updateStock));
+});
+
+add_to.addEventListener('click', (e) => {
+    console.log(e.target);
+    if (e.target.classList.contains('plus')) {
+        console.log('add to cart');
+        add_amount++;
+        console.log(add_amount);
+    }
+    else if (e.target.classList.contains('minus')) {
+        console.log('remove from cart');
+        if (add_amount > 0) {
+            add_amount--;
+            console.log(add_amount);
+        }
+    }
 });
