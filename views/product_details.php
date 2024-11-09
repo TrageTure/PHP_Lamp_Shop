@@ -16,6 +16,10 @@ $allProductsByCategory = $product->getProductsByCategory($product->getCategoryId
 $options = new Options();
 $uniqueColors = $options->getUniqueColorsByProductId($_GET['id']); 
 $uniqueSizes = $options->getUniqueSizesByProductId($_GET['id']);
+
+//als er op de div add_to wordt geklikt, wordt de functie new Orderline() aangeroepen
+//deze functie maakt een nieuwe orderline aan
+
 ?><!DOCTYPE html>
 <html lang="en">
 <head>
