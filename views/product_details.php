@@ -17,8 +17,6 @@ $options = new Options();
 $uniqueColors = $options->getUniqueColorsByProductId($_GET['id']); 
 $uniqueSizes = $options->getUniqueSizesByProductId($_GET['id']);
 
-
-
 ?><!DOCTYPE html>
 <html lang="en">
 <head>
@@ -91,7 +89,7 @@ $uniqueSizes = $options->getUniqueSizesByProductId($_GET['id']);
                             <p class="amount_count">0</p>
                             <p class="plus"></p>
                         </div>
-                        <div class="add_to"></div>
+                        <div class="add_to" id="add_to_cart_button"></div>
                     </div>
                     
                 </div>

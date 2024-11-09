@@ -1,4 +1,7 @@
 <?php
+session_start(); // Start de sessie bovenaan het bestand
+
+include_once('../classes/Product.php');
 include_once('../classes/ProductOptions.php');
 
 if (isset($_GET['product_id'], $_GET['color_id'], $_GET['size_id'])) {
@@ -11,7 +14,5 @@ if (isset($_GET['product_id'], $_GET['color_id'], $_GET['size_id'])) {
     $price = $options->getPriceByColorAndSize($productId, $colorId, $sizeId);
 
     echo json_encode(['stock_amount' => $stock['stock_amount'], 'price' => $price]);
-} else {
-    echo json_encode(['error' => 'Invalid parameters']);
+    exit;
 }
-?>
