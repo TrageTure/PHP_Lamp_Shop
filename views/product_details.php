@@ -17,12 +17,7 @@ $options = new Options();
 $uniqueColors = $options->getUniqueColorsByProductId($_GET['id']); 
 $uniqueSizes = $options->getUniqueSizesByProductId($_GET['id']);
 
-// $orderline = new Orderline();
-// $orderline->setOrderId($order->getId());
-// $orderline->setProductId($product->getId());
-// $orderline->setAmount($amount);
-// $orderline->setPricePerUnit($product->getPrice());
-// $orderline->save();
+
 
 ?><!DOCTYPE html>
 <html lang="en">
@@ -98,7 +93,9 @@ $uniqueSizes = $options->getUniqueSizesByProductId($_GET['id']);
                         </div>
                         <div class="add_to"></div>
                     </div>
+                    
                 </div>
+                <p class="error">Error</p>
             </section>
 
         </div>
