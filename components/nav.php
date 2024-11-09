@@ -14,7 +14,6 @@
     </div>
 
     <div class="shopping_cart_items">
-        <div class="divider"></div>
         <div class="items">
             <div class="item">
                 <div class="shopping_cart_item_img"></div>
