@@ -123,5 +123,6 @@ $uniqueSizes = $options->getUniqueSizesByProductId($_GET['id']);
         const productId = <?php echo json_encode($_GET['id']); ?>;
     </script>
     <script src="../js/product_details.js"></script>
+    <script src="../js/components.js"></script> <!-- Add this line to include the components.js script -->
 </body>
 </html>

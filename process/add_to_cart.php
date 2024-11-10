@@ -37,29 +37,42 @@ if (isset($data['product_id'], $data['color_id'], $data['size_id'], $data['amoun
 
 function addToCart($product_id, $amount, $color_id, $size_id) {
     if (!isset($_SESSION['cart'])) {
-        $_SESSION['cart'] = [];
+        $_SESSION['cart'] = []; // Initialiseer de winkelwagen
     }
 
+    // Maak een nieuw Product-object aan en haal de productgegevens op
     $product = new Product();
     $product->getProductById($product_id);
-    $productOptions = new Options();
 
+    // Gebruik ProductOptions om de prijs te verkrijgen
+    $productOptions = new Options();
+    $price = $productOptions->getPriceByColorAndSize($product_id, $color_id, $size_id);
+
+    // Controleer of het product al in de winkelwagen zit met dezelfde kleur en maat
+    $itemExists = false;
     foreach ($_SESSION['cart'] as &$cartItem) {
         if ($cartItem['product_id'] == $product_id && $cartItem['color_id'] == $color_id && $cartItem['size_id'] == $size_id) {
+            // Verhoog de hoeveelheid als het product al in de winkelwagen zit
             $cartItem['amount'] += $amount;
+            $itemExists = true;
             return;
         }
     }
 
-    $cartItem = [
-        'product_id' => $product_id,
-        'name' => $product->getTitle(),
-        'price' => $productOptions->getPrice(),
-        'amount' => $amount,
-        'color_id' => $color_id,
-        'size_id' => $size_id
-    ];
+    // Voeg een NIEUW item toe aan de winkelwagen
+    if (!$itemExists) {
+        $cartItem = [
+            'product_id' => $product_id,
+            'name' => $product->getTitle(),
+            'price' => $price,
+            'amount' => $amount,
+            'color_id' => $color_id,
+            'size_id' => $size_id
+        ];
 
+    }
+
+    // Voeg het nieuwe item toe aan de sessie-array
     $_SESSION['cart'][] = $cartItem;
 }
 ?>
