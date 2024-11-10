@@ -20,7 +20,6 @@ if (isset($data['product_id'], $data['color_id'], $data['size_id'], $data['amoun
     $size_id = $data['size_id'];
     $amount = $data['amount'];
 
-    // Debugging informatie
     error_log("Received POST data: product_id=$product_id, color_id=$color_id, size_id=$size_id, amount=$amount");
 
     try {
@@ -50,18 +49,18 @@ function addToCart($product_id, $amount, $color_id, $size_id) {
 
     // Controleer of het product al in de winkelwagen zit met dezelfde kleur en maat
     $itemExists = false;
-    foreach ($_SESSION['cart'] as &$cartItem) {
+    foreach ($_SESSION['cart'] as $index => $cartItem) {
         if ($cartItem['product_id'] == $product_id && $cartItem['color_id'] == $color_id && $cartItem['size_id'] == $size_id) {
             // Verhoog de hoeveelheid als het product al in de winkelwagen zit
-            $cartItem['amount'] += $amount;
+            $_SESSION['cart'][$index]['amount'] += $amount;
             $itemExists = true;
-            return;
+            break;
         }
     }
 
-    // Voeg een NIEUW item toe aan de winkelwagen
+    // Voeg een nieuw item toe aan de winkelwagen als het nog niet bestaat
     if (!$itemExists) {
-        $cartItem = [
+        $newItem = [
             'product_id' => $product_id,
             'name' => $product->getTitle(),
             'price' => $price,
@@ -70,9 +69,6 @@ function addToCart($product_id, $amount, $color_id, $size_id) {
             'size_id' => $size_id
         ];
 
+        $_SESSION['cart'][] = $newItem; // Voeg het nieuwe item toe aan de winkelwagen
     }
-
-    // Voeg het nieuwe item toe aan de sessie-array
-    $_SESSION['cart'][] = $cartItem;
 }
-?>

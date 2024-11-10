@@ -10,28 +10,30 @@ let add_amount = 0;
 let maxStock;
 
 document.addEventListener('DOMContentLoaded', function() {
+function updateStock() {
+    const selectedColor = document.querySelector('input[name="color"]:checked');
+    const selectedSize = document.querySelector('input[name="size"]:checked');
 
-    function updateStock() {
-        const selectedColor = document.querySelector('input[name="color"]:checked');
-        const selectedSize = document.querySelector('input[name="size"]:checked');
+    if (selectedColor && selectedSize) {
+        const colorId = selectedColor.value;
+        const sizeId = selectedSize.value;
 
-        if (selectedColor && selectedSize) {
-            const colorId = selectedColor.value;
-            const sizeId = selectedSize.value;
+        fetch(`../process/get_stock.php?product_id=${productId}&color_id=${colorId}&size_id=${sizeId}`)
+            .then(response => response.json())
+            .then(data => {
+                stockDisplay.textContent = `${data.stock_amount}`;
+                priceDisplay.textContent = `$${data.price}`;
+                maxStock = data.stock_amount; 
 
-            fetch(`../process/get_stock.php?product_id=${productId}&color_id=${colorId}&size_id=${sizeId}`)
-                .then(response => response.json())
-                .then(data => {
-                    stockDisplay.textContent = `${data.stock_amount}`;
-                    priceDisplay.textContent = `$${data.price}`;
-                    maxStock = data.stock_amount; 
-                })
-                .catch(error => {
-                    console.error('Error fetching stock:', error);
-                    stockDisplay.textContent = 'Error fetching stock';
-                });
-        }
+                add_amount = 0;
+                amount_count.innerHTML = add_amount;
+            })
+            .catch(error => {
+                console.error('Error fetching stock:', error);
+                stockDisplay.textContent = 'Error fetching stock';
+            });
     }
+}
 
     colorRadios.forEach(radio => radio.addEventListener('change', updateStock));
     sizeRadios.forEach(radio => radio.addEventListener('change', updateStock));
@@ -42,10 +44,9 @@ add_to.addEventListener('click', (e) => {
         error.innerHTML = 'Please select a color and size';
         error.style.display = 'block';
     } else {
+        // Controleer of de gebruiker op de plus-knop heeft geklikt
         if (e.target.classList.contains('plus')) {
             if (add_amount < maxStock) {
-                console.log('add to cart');
-                console.log(e.target);
                 add_amount++;
                 amount_count.innerHTML = add_amount;
                 error.style.display = 'none';
@@ -53,7 +54,9 @@ add_to.addEventListener('click', (e) => {
                 error.innerHTML = 'You can only add up to the available stock';
                 error.style.display = 'block';
             }
-        } else if (e.target.classList.contains('minus')) {
+        } 
+        // Controleer of de gebruiker op de min-knop heeft geklikt
+        else if (e.target.classList.contains('minus')) {
             if (add_amount > 0) {
                 add_amount--;
                 amount_count.innerHTML = add_amount;
@@ -66,52 +69,47 @@ add_to.addEventListener('click', (e) => {
 const addToCartButton = document.getElementById('add_to_cart_button');
 
 addToCartButton.addEventListener('click', (e) => {
-    if (e.target.classList.contains('add_to')) {
-        const selectedColor = document.querySelector('input[name="color"]:checked');
-        const selectedSize = document.querySelector('input[name="size"]:checked');
+    const selectedColor = document.querySelector('input[name="color"]:checked');
+    const selectedSize = document.querySelector('input[name="size"]:checked');
 
-        if (selectedColor && selectedSize) {
-            const colorId = selectedColor.value;
-            const sizeId = selectedSize.value;
+    if (selectedColor && selectedSize) {
+        const colorId = selectedColor.value;
+        const sizeId = selectedSize.value;
 
-            fetch('../process/add_to_cart.php', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    product_id: productId,
-                    color_id: colorId,
-                    size_id: sizeId,
-                    amount: add_amount
-                })
+        fetch('../process/add_to_cart.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                product_id: productId,
+                color_id: colorId,
+                size_id: sizeId,
+                amount: add_amount
             })
-            .then(response => response.text())
-                .then(result => {
-                console.log(JSON.stringify({
-                    product_id: productId,
-                    color_id: colorId,
-                    size_id: sizeId,
-                    amount: add_amount
-                }))
-                console.log("Server response:", result);
-                try {
-                    const data = JSON.parse(result);
-                    if (data.success) {
-                        alert("Product added to cart!");
-                    } else {
-                        error.innerHTML = data.message || 'Error adding to cart';
-                        error.style.display = 'block';
-                    }
-                } catch (e) {
-                    console.error("JSON parse error:", e);
-                    error.innerHTML = 'Invalid server response';
+        })
+        .then(response => response.text())
+        .then(result => {
+            console.log("Server response:", result);
+            try {
+                const data = JSON.parse(result);
+                if (data.success) {
+                    alert("Product added to cart!");
+                    location.reload(); // Herlaad de pagina om de bijgewerkte winkelwagen te tonen
+                } else {
+                    error.innerHTML = data.message || 'Error adding to cart';
                     error.style.display = 'block';
                 }
-            })
-            .catch(error => {
-                console.error('Error adding to cart:', error);
-            });
-        }
+            } catch (e) {
+                console.error("JSON parse error:", e);
+                error.innerHTML = 'Invalid server response';
+                error.style.display = 'block';
+            }
+        })
+        .catch(error => {
+            console.error('Error adding to cart:', error);
+        });
     }
 });
+
+// Verwijder de onnodige document 'change' eventlistener
