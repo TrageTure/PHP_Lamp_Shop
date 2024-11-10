@@ -108,7 +108,9 @@ nav{
     background-image: url(../images/lamp_groen.webp);
     background-size: cover;
     border-radius: 15px;
-    margin: 1em;
+    justify-self: center;
+    align-self: center;
+    object-fit: cover;
 }
 
 .shopping_cart_info_grid{
@@ -117,19 +119,22 @@ nav{
     grid-template-rows: 1fr 1fr;
     justify-items: center;
     align-items: center;
+    width: 270px;
 }
 
 .shopping_cart_item_amount{
     grid-column: 2/3;
     grid-row: 2/3;
     justify-self: flex-end;
+    align-self: center;
 }
 
 .shopping_cart_item_price{
     grid-column: 1/2;
     grid-row: 2/3;
     justify-self: first baseline;
-    font-size: medium;
+    font-size: 12pt;
+    margin: 0;
 }
 
 .delete{
@@ -144,7 +149,7 @@ nav{
 
 .item {
     display: flex;
-    width: 100%;
+    width: 90%;
     max-width: calc(100% - 2em); /* Houd rekening met de marges */
     margin-left: 1em;
     margin-right: 1em;
@@ -152,10 +157,11 @@ nav{
     padding: 0;
     justify-content: space-between;
     box-sizing: border-box; /* Zorg ervoor dat padding en marges worden meegerekend */
+    align-self: center;
 }
 
 .divider2{
-    width: 80%;
+    width: 90%;
     height: 4px;
     background-color: #415f94;
     border-radius: 15px;
@@ -193,7 +199,8 @@ nav{
     overflow-x: hidden;
     overflow-y: scroll;
     flex-shrink: 0;
-    width: 500px;
+    width: 450px;
+    padding: 10px;
 }
 
 .totaal_bedrag{
@@ -228,5 +235,15 @@ nav{
 }
 
 .shopping_cart_item_name{
-    font-size: medium;
+    margin: 0;
+    font-size: 18pt;
+}
+
+.shopping_cart_item_name_color_size{
+    justify-self: flex-start;
+}
+
+.shopping_cart_item_name_color_size p{
+    color: #767676;
+    font-size: 12pt;
 }

@@ -77,6 +77,22 @@ class Options {
         return $statement->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    public function getColorById($colorId) {
+        $conn = Db::connect();
+        $statement = $conn->prepare("SELECT * FROM colors WHERE id = :color_id");
+        $statement->bindValue(':color_id', $colorId, PDO::PARAM_INT);
+        $statement->execute();
+        return $statement->fetch(PDO::FETCH_ASSOC);
+    }
+
+    public function getSizeById($sizeId) {
+        $conn = Db::connect();
+        $statement = $conn->prepare("SELECT * FROM size WHERE id = :size_id");
+        $statement->bindValue(':size_id', $sizeId, PDO::PARAM_INT);
+        $statement->execute();
+        return $statement->fetch(PDO::FETCH_ASSOC);
+    }
+
     public function getColorsByProductId($productId) {
         $conn = Db::connect();
         $statement = $conn->prepare("SELECT colors.id, colors.color_name FROM colors INNER JOIN product_options ON colors.id = product_options.color_id WHERE product_options.product_id = :product_id");
