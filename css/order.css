@@ -1,0 +1,22 @@
+.main{
+    margin-top: 105px;
+    margin-bottom: 30px;
+    overflow: show;
+    display: flex;
+    justify-content: space-evenly;
+    gap: 2em;
+    width: 95%;
+    max-width: 95%;
+}
+
+img{
+    width: 200px;
+    height: 200px;
+    border-radius: 15px;
+    object-fit: cover;
+}
+
+.item{
+    display: flex;
+    gap: 10em;
+}
