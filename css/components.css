@@ -72,6 +72,7 @@ nav{
     right: -5px;
     margin: 0;
     font-family: "Lato-regular", sans-serif;
+    font-size: 12pt;
 }
 
 .shopping_cart_items{
@@ -246,4 +247,16 @@ nav{
 .shopping_cart_item_name_color_size p{
     color: #767676;
     font-size: 12pt;
+}
+
+.empty_cart{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    font-size: 24pt;
+    color: #415f94;
+    margin: 0;
+    padding: 0;
 }

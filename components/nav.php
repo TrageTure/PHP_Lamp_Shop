@@ -50,18 +50,22 @@ if (isset($_SESSION['cart'])) {
             <div class="divider2"></div>
         <?php endforeach; ?>
 
+        <?php if (empty($_SESSION['cart'])): ?>
+            <h2 class="empty_cart">Je winkelwagen is leeg</h2>
+        <?php else: ?>
             <div class="totaal_bedrag">
                 <h2>Totaal bedrag:</h2>
                 <h2><?php 
                 $totalPricePerItem = 0;
+                $totalPricePerItem = 0;
                 foreach($_SESSION['cart'] as $index => $item){
-                    $totalPricePerItem = $item['price'] * $item['amount'];
+                    $totalPricePerItem += $item['price'] * $item['amount'];
                 }
-                number_format($totalPricePerItem, 2, '.', "");
-                echo '€'.$totalPricePerItem;
+                echo '€'.number_format($totalPricePerItem, 2, '.', '');
                 ?></h2>
             </div>
             <h3 class="btn_bestellen">Bestellen!</h3>
+        <?php endif; ?>
         </div>
     </div>
     <script src="../js/components.js"></script>
