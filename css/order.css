@@ -9,14 +9,211 @@
     max-width: 95%;
 }
 
-img{
+.orderlines{
+    width: 65%;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.artikelen_titel{
+    align-self: flex-start;
+}
+
+.left{
+    width: 45%;
+    height: 100%;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 3em;
+}
+
+
+.order_shopping_cart_item_name{
+    margin: 0;
+    font-size: 28pt;
+}
+
+.order_shopping_cart_item_name_color_size{
+    justify-self: flex-start;
+}
+
+.order_shopping_cart_item_name_color_size p{
+    color: #767676;
+    font-size: 18pt;
+}
+
+
+.order_shopping_cart_item_img{
     width: 200px;
     height: 200px;
+    background-image: url(../images/lamp_groen.webp);
+    background-size: cover;
     border-radius: 15px;
+    justify-self: center;
+    align-self: center;
     object-fit: cover;
 }
 
-.item{
+.order_shopping_cart_info_grid{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    justify-items: center;
+    align-items: center;
+    width: 75%;
+}
+
+.order_shopping_cart_item_amount{
+    grid-column: 2/3;
+    grid-row: 2/3;
+    justify-self: flex-end;
+    align-self: center;
+    font-size: 18pt;
+}
+
+.order_shopping_cart_item_price{
+    grid-column: 1/2;
+    grid-row: 2/3;
+    justify-self: first baseline;
+    font-size: 18pt;
+    margin: 0;
+}
+
+.order_delete{
+    background-image: url(../images/close.svg);
+    width: 55px;
+    height: 55px;
+    justify-self: flex-end;
+    background-size: cover;
+    background-repeat: no-repeat;
+    cursor: pointer;
+}
+
+.order_item {
     display: flex;
-    gap: 10em;
+    width: 90%;
+    max-width: calc(100% - 2em); /* Houd rekening met de marges */
+    margin-left: 1em;
+    margin-right: 1em;
+    flex: 0 1 auto;
+    padding: 0;
+    justify-content: space-between;
+    box-sizing: border-box; /* Zorg ervoor dat padding en marges worden meegerekend */
+    align-self: center;
+    gap: 3em;
+}
+
+.order_divider2{
+    width: 90%;
+    height: 4px;
+    background-color: #415f94;
+    border-radius: 15px;
+    align-self: center;
+    flex-shrink: 0;
+    margin-top: 2em;
+    margin-bottom: 2em;
+}
+
+.delivery_options{
+    align-self: start;
+}
+.delivery_radio{
+    display: flex;
+    flex-direction: row;
+    gap: 1em;
+    justify-content: center;
+}
+.standard h3, .express h3{
+    margin: 0;
+    margin-bottom: 0.25em;
+}
+
+.standard{
+    outline: #e67a14 solid 3px;
+    border-radius: 10px;
+    padding: 0.25em;
+    text-align: center;
+    display: flex;
+}
+.express{
+    outline: #e67a14 solid 3px;
+    border-radius: 10px;
+    padding: 0.25em;
+    text-align: center;
+    display: flex;
+}
+
+.total_price{
+    display: flex;
+    gap: 1em;
+}
+
+.title_left{
+    margin: 0;
+}
+
+.order_btn_bestellen{
+    background-color: #e67a14;
+    color: white;
+    padding: 0.25em 1em;
+    width: fit-content;
+    border-radius: 15px;
+    cursor: pointer;
+    align-self: center;
+    margin-top: 0;
+    transition: all 200ms ease-out;
+    font-size: 28pt;
+}
+
+.order_btn_bestellen:hover{
+    scale: 1.1;
+}
+
+.flex_delivery_grid{
+    display: flex;
+    flex-direction: column;
+}
+
+.delivery_radio input[type="radio"]{
+    display: none;
+}
+.delivery_radio label{
+    display: flex;
+    gap: 0.5em;
+    align-items: center;
+    cursor: pointer;
+    padding: 0.5em;
+    border-radius: 10px;
+    width: fit-content;
+    font-weight: 800;;
+}
+.delivery_radio label::before {
+    content: "";
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%; 
+    background-color: transparent; 
+    cursor: pointer;
+    margin-right: 8px;
+}
+.delivery_radio label[for="standard"]::before {
+    outline: #e67a14 solid 3px;
+    border: white 3px solid;
+}
+
+.delivery_radio label[for="express"]::before {
+    outline: #e67a14 solid 3px;
+    border: white 3px solid;
+}
+#standard:checked + label::before {
+    background-color: #415f94;
+}
+#express:checked + label::before {
+    background-color: #415f94;
 }
