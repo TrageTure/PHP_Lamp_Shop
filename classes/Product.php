@@ -164,5 +164,12 @@ class Product {
             throw $e; 
         }
     }
+
+    public function getRandomProducts() {
+        $conn = Db::connect();
+        $statement = $conn->prepare("SELECT id, title, description, (SELECT MIN(price) FROM product_options WHERE product_id = products.id) AS min_price FROM products ORDER BY RAND() LIMIT 10");
+        $statement->execute();
+        return $statement->fetchAll(PDO::FETCH_ASSOC);
+    }
 }
 ?>

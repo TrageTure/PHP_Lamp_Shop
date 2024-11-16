@@ -111,5 +111,3 @@ addToCartButton.addEventListener('click', (e) => {
         });
     }
 });
-
-// Verwijder de onnodige document 'change' eventlistener

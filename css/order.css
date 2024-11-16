@@ -14,21 +14,34 @@
     background-color: white;
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
+    height: fit-content;
 }
 
 .artikelen_titel{
     align-self: flex-start;
 }
 
-.left{
-    width: 45%;
-    height: 100%;
+.right{
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+}
+
+.right_top{
+    width: 100%;
     background-color: white;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    /* justify-content: center; */
+    gap: 3em;
+}
+
+.right_bottom{
+    width: 100%;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
     gap: 3em;
 }
 
@@ -148,11 +161,32 @@
     display: flex;
 }
 
-.total_price{
+.aantal_artikelen{
     display: flex;
     gap: 1em;
+    justify-content: space-between;
 }
 
+.verzendkosten{
+    display: flex;
+    gap: 1em;
+    justify-content: space-between;
+}
+
+.totaal{
+    display: flex;
+    gap: 1em;
+    justify-content: space-between;
+}
+
+.divider{
+    width: 100%;
+    height: 4px;
+    background-color: #415f94;
+    border-radius: 15px;
+    align-self: center;
+    flex-shrink: 0;
+}
 .title_left{
     margin: 0;
 }
