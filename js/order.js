@@ -1,7 +1,4 @@
 const deliveryOptions = document.querySelectorAll('input[name="delivery"]');
-const plus = document.querySelectorAll('.plus');
-const minus = document.querySelectorAll('.minus');
-const quantity = document.querySelectorAll('.amount_count');
 let selectedDelivery;
 
 function updateDelivery() {
@@ -49,12 +46,20 @@ deliveryOptions.forEach(option => {
 
 document.addEventListener('DOMContentLoaded', function() {
     const deleteButtons = document.querySelectorAll('.delete');
+    const plus = document.querySelectorAll('.plus');
+    const minus = document.querySelectorAll('.minus');
+    const quantity = document.querySelectorAll('.amount_count');
 
+    // Verwijder item uit de winkelwagen
     deleteButtons.forEach(button => {
         button.addEventListener('click', function() {
             const itemIndex = this.dataset.index;
-            fetch(`../process/delete_from_cart.php?index=${itemIndex}`, {
-                method: 'GET'
+            fetch('../process/delete_from_cart.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ index: itemIndex })
             })
             .then(response => response.json())
             .then(result => {
@@ -70,4 +75,56 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
     });
+
+    // Verhoog het aantal van een item in de winkelwagen
+    plus.forEach(button => {
+        button.addEventListener('click', function () {
+            console.log('clicked');
+            const itemIndex = this.closest('.order_item').querySelector('.order_delete').dataset.index;
+            fetch('../process/update_quantity_order.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ index: itemIndex, action: 'increase' })
+            })
+            .then(response => response.json())
+            .then(result => {
+                if (result.success) {
+                    location.reload(); 
+                } else {
+                    alert(result.message);
+                }
+            })
+            .catch(error => {
+                console.error('Fout bij het verhogen van de hoeveelheid:', error);
+            });
+        });
+    });
+
+    // Verlaag het aantal van een item in de winkelwagen
+    minus.forEach(button => {
+        button.addEventListener('click', function() {
+            const itemIndex = this.closest('.order_item').querySelector('.order_delete').dataset.index;
+            fetch('../process/update_quantity_order.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ index: itemIndex, action: 'decrease' })
+            })
+            .then(response => response.json())
+            .then(result => {
+                if (result.success) {
+                    location.reload(); 
+                } else {
+                    alert(result.message);
+                }
+            })
+            .catch(error => {
+                console.error('Fout bij het verlagen van de hoeveelheid:', error);
+            });
+        });
+    });
+
 });

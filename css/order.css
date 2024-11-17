@@ -49,6 +49,10 @@
 .order_shopping_cart_item_name{
     margin: 0;
     font-size: 28pt;
+    line-clamp: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .order_shopping_cart_item_name_color_size{
@@ -70,6 +74,7 @@
     justify-self: center;
     align-self: center;
     object-fit: cover;
+    flex-shrink: 0;
 }
 
 .order_shopping_cart_info_grid{

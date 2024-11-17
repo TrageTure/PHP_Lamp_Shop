@@ -66,7 +66,6 @@ foreach ($_SESSION['cart'] as $item) {
                             <p class="plus"></p>
                         </div>
                         </div>
-
                     </div>
                 </div>
                 <div class="order_divider2"></div>
