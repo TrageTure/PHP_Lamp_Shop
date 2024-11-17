@@ -10,6 +10,9 @@ include_once('../classes/ProductOptions.php');
 $product = new Product();
 $randomProducts = $product->getRandomProducts();
 
+$options = new Options(); 
+
+
 $amount = 0;
 foreach ($_SESSION['cart'] as $item) {
     $amount += $item['amount'];
@@ -45,6 +48,7 @@ foreach ($_SESSION['cart'] as $item) {
                     $options = new Options();
                     $color = $options->getColorById($item['color_id']);
                     $size = $options->getSizeById($item['size_id']);
+                    $uniqueStock = $options->getStockAmountByColorAndSize($item['product_id'], $item['color_id'], $item['size_id']);
                 ?>
                 <div class="order_item">
                     <img class="order_shopping_cart_item_img" src='../images/product_images/<?php echo htmlspecialchars($thumbnail); ?>'>
@@ -55,7 +59,14 @@ foreach ($_SESSION['cart'] as $item) {
                         </div>
                         <div class="order_delete" data-index="<?php echo $index; ?>"></div> 
                         <h2 class="order_shopping_cart_item_price"><?php echo htmlspecialchars($item['price']); ?>€</h2>
-                        <p class="order_shopping_cart_item_amount">Aantal: <?php echo htmlspecialchars($item['amount']); ?></p>
+                        <div class="order_shopping_cart_item_amount">
+                        <div id="add">
+                            <p class="minus"></p>
+                            <p class="amount_count"><?php echo $item['amount']?></p>
+                            <p class="plus"></p>
+                        </div>
+                        </div>
+
                     </div>
                 </div>
                 <div class="order_divider2"></div>

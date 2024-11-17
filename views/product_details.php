@@ -86,7 +86,7 @@ $uniqueSizes = $options->getUniqueSizesByProductId($_GET['id']);
                     <div class="container_price_cart">
                         <div id="add">
                             <p class="minus"></p>
-                            <p class="amount_count">0</p>
+                            <p class="amount_count"></p>
                             <p class="plus"></p>
                         </div>
                         <div class="add_to" id="add_to_cart_button"></div>
@@ -125,4 +125,8 @@ $uniqueSizes = $options->getUniqueSizesByProductId($_GET['id']);
     <script src="../js/product_details.js"></script>
     <script src="../js/components.js"></script>
 </body>
-</html>
+</html>[17-Nov-2024 10:35:13 UTC] Array
+(
+    [stock_amount] => 1
+)
+

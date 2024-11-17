@@ -1,4 +1,7 @@
 const deliveryOptions = document.querySelectorAll('input[name="delivery"]');
+const plus = document.querySelectorAll('.plus');
+const minus = document.querySelectorAll('.minus');
+const quantity = document.querySelectorAll('.amount_count');
 let selectedDelivery;
 
 function updateDelivery() {
