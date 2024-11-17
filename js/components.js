@@ -32,7 +32,6 @@ document.addEventListener('DOMContentLoaded', function() {
             .then(response => response.json())
             .then(result => {
                 if (result.success) {
-                    alert('Item verwijderd uit winkelwagen!');
                     location.reload(); // Herlaad de pagina om de bijgewerkte winkelwagen te tonen
                 } else {
                     alert('Er is iets misgegaan bij het verwijderen van het item.');
@@ -53,7 +52,6 @@ document.addEventListener('DOMContentLoaded', function() {
             .then(response => response.json())
             .then(result => {
                 if (result.success) {
-                    alert('Item verwijderd uit winkelwagen!');
                     location.reload(); // Herlaad de pagina om de bijgewerkte winkelwagen te tonen
                 } else {
                     alert('Er is iets misgegaan bij het verwijderen van het item.');

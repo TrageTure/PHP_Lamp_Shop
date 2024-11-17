@@ -94,7 +94,6 @@ addToCartButton.addEventListener('click', (e) => {
             try {
                 const data = JSON.parse(result);
                 if (data.success) {
-                    alert("Product added to cart!");
                     location.reload(); // Herlaad de pagina om de bijgewerkte winkelwagen te tonen
                 } else {
                     error.innerHTML = data.message || 'Error adding to cart';
