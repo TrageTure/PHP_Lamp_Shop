@@ -2,6 +2,7 @@ const shopping_cart = document.querySelector('.shopping_cart_flex');
 const shopping_cart_items = document.querySelector('.shopping_cart_items');
 const shopping_cart_indicator = document.querySelector('.indicator')
 const btn_bestellen = document.querySelector('.btn_bestellen')
+const account = document.querySelector('.account')
 var shopping_cart_state = false
 
 shopping_cart.addEventListener("click", () => {
@@ -66,4 +67,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
 btn_bestellen.addEventListener("click", () => {
     window.location.href = "../views/order_screen.php";
+});
+
+account.addEventListener("click", () => {
+    window.location.href = "../views/account.php";
 });

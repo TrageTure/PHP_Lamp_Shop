@@ -7,7 +7,7 @@ class Db{
             self::$conn = new PDO('mysql:host=localhost;dbname=LampShopXD', 'root', 'root');;//establish the connection
             return self::$conn;
         }
-        else{//if the connection is already established
+        else{
             return self::$conn;
         }
     }
