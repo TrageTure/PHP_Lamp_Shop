@@ -34,6 +34,7 @@ include_once('../classes/ProductOptions.php');
                 </div>
 
                 <p class="add_balance">Balans toevoegen</p>
+                <a href="../process/logout.php">Log out</a>
             </section>
 
             <section class="adresses">
