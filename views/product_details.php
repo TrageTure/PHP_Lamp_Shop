@@ -98,6 +98,95 @@ $uniqueSizes = $options->getUniqueSizesByProductId($_GET['id']);
 
         </div>
     </main>
+    <section class="reviews">
+        <h2>Reviews</h2>
+        <div class="reviews_grid">
+            <section class="review_container">
+                <div class="review">
+                    <div class="flex_review">
+                        <img src="../images/0bd73bfec9d3f645b06bea1a433fc642.gif" alt="profile_pic_review">
+                        <div id="right">
+                            <div class="flex_name_stars">
+                                <h3>John Doe</h3>
+                                <div class="stars">
+                                    <div class="star"></div>
+                                    <div class="star"></div>
+                                    <div class="star"></div>
+                                    <div class="star"></div>
+                                    <div class="star"></div>
+                                </div>
+                            </div>
+                            <p>Great product, I love it!</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="review_container">
+                <div class="review">
+                    <div class="flex_review">
+                        <img src="../images/0bd73bfec9d3f645b06bea1a433fc642.gif" alt="profile_pic_review">
+                        <div id="right">
+                            <div class="flex_name_stars">
+                                <h3>John Doe</h3>
+                                <div class="stars">
+                                    <div class="star"></div>
+                                    <div class="star"></div>
+                                    <div class="star"></div>
+                                    <div class="star"></div>
+                                    <div class="star"></div>
+                                </div>
+                            </div>
+                            <p>Great product, I love it!</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="review_container">
+                <div class="review">
+                    <div class="flex_review">
+                        <img src="../images/0bd73bfec9d3f645b06bea1a433fc642.gif" alt="profile_pic_review">
+                        <div id="right">
+                            <div class="flex_name_stars">
+                                <h3>John Doe</h3>
+                                <div class="stars">
+                                    <div class="star"></div>
+                                    <div class="star"></div>
+                                    <div class="star"></div>
+                                    <div class="star"></div>
+                                    <div class="star"></div>
+                                </div>
+                            </div>
+                            <p>Great product, I love it!</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="review_container">
+                <div class="review">
+                    <div class="flex_review">
+                        <img src="../images/0bd73bfec9d3f645b06bea1a433fc642.gif" alt="profile_pic_review">
+                        <div id="right">
+                            <div class="flex_name_stars">
+                                <h3>John Doe</h3>
+                                <div class="stars">
+                                    <div class="star"></div>
+                                    <div class="star"></div>
+                                    <div class="star"></div>
+                                    <div class="star"></div>
+                                    <div class="star"></div>
+                                </div>
+                            </div>
+                            <p>Great product, I love it!</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+    </section>
     <section class="recomended">
         <h2>Meer producten zoals deze:</h2>
         <section class="products">
@@ -125,8 +214,4 @@ $uniqueSizes = $options->getUniqueSizesByProductId($_GET['id']);
     <script src="../js/product_details.js"></script>
     <script src="../js/components.js"></script>
 </body>
-</html>[17-Nov-2024 10:35:13 UTC] Array
-(
-    [stock_amount] => 1
-)
-
+</html>

@@ -313,3 +313,75 @@ label[for="rood"]::before {
     width: 95%;
     max-width: 95%;
 }
+
+/*! reviews */
+.reviews{
+    display: flex;
+    flex-direction: column;
+    width: 95%;
+    padding: 1em;
+    border-radius: 15px;
+    background-color: white;
+    box-shadow: 10px 10px 5px 0px rgb(234, 234, 234);
+}
+
+.reviews_grid{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    align-items: center;
+    justify-items: center;
+    width: 100%;
+    gap: 1em;
+}
+
+.review_container{
+    width: 90%;
+    height: 90px;
+    margin: 0;
+}
+
+.reviews img{
+    width: 90px;
+    height: 90px;
+    border-radius: 100%;
+    object-fit: cover;
+}
+
+.flex_review{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 0.5em;
+}
+
+.flex_review h3{
+    margin: 0;
+    padding: 0;
+    color: #e67a14;
+}
+.stars{
+    display: flex;
+    gap: 0.25em;
+}
+.stars .star{
+    width: 17.5px;
+    height: 17.5px;
+    background-image: url(../images/star.svg);
+    background-size: cover;
+    background-position: center;
+}
+
+.flex_name_stars{
+    display: flex;
+    flex-direction: column;
+    align-self: start;
+    height: 100%;
+}
+
+#right{
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    background-color: none;
+    height: 90px;
+}
