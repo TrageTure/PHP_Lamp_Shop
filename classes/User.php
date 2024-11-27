@@ -114,5 +114,14 @@ class User{
             throw new Exception('User not found');
         }
     }
+
+    public function getAllFromEmail($email){
+        $conn = Db::connect();
+        $statement = $conn->prepare('SELECT * FROM users WHERE email = :email');
+        $statement->bindParam(':email', $email);
+        $statement->execute();
+        $user = $statement->fetch(PDO::FETCH_ASSOC); 
+        return $user;
+    }
 }
 ?>

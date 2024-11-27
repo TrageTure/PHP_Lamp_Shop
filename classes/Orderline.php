@@ -1,5 +1,5 @@
 <?php
-
+include_once('Db.php');
 class Orderline {
     private $id;
     private $order_id;

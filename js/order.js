@@ -128,3 +128,25 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
 });
+
+const btn_bestellen = document.querySelector('.btn_bestellen');
+btn_bestellen.addEventListener('click', function() {
+    fetch('../process/place_order.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+    .then(response => response.json())
+    .then(result => {
+        if (result.success) {
+            alert('Bestelling geplaatst!');
+            location.href = '../index.php';
+        } else {
+            alert(result.message);
+        }
+    })
+    .catch(error => {
+        console.error('Fout bij het plaatsen van de bestelling:', error);
+    });
+});

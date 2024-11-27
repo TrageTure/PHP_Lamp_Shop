@@ -6,6 +6,7 @@ if ($_SESSION['loggedin'] !== true) {
 include_once('../classes/Product.php');
 include_once('../classes/Pictures.php');
 include_once('../classes/ProductOptions.php');
+include_once('../classes/Order.php');
 
 $product = new Product();
 $randomProducts = $product->getRandomProducts();
