@@ -22,7 +22,19 @@ const addresses = document.querySelectorAll('.adress_grid');
 let editMode = false;
 let isEditing = false;
 
+const deleteButtons = document.querySelectorAll('.delete_adress');
+
+
 editButton.addEventListener('click', () => {
+    if (editMode === true) {
+        deleteButtons.forEach(button => {
+            button.style.display = 'none';
+        });
+    } else {
+        deleteButtons.forEach(button => {
+            button.style.display = 'block';
+        });
+    }
     console.log(`isEditing = ${isEditing}`)
     if (editMode === false && isEditing === false) {
         editMode = true;
@@ -94,5 +106,25 @@ function saveAddressChanges(address) {
 
     isEditing = false;
     console.log('Address updated:', { nameValue, streetValue, cityValue, countryValue, isEditing });
-
 }
+
+document.getElementById('addressForm').addEventListener('submit', (e) => {
+    e.preventDefault();
+
+    const formData = new FormData(document.getElementById('addressForm'));
+
+    fetch('../process/add_adress.php', {
+        method: 'POST',
+        body: formData
+    })
+        .then(response => response.json())
+        .then(result => {
+            console.log('Server response:', result);
+            if (result.success) {
+                console.log('Address added:', result.address);
+            }
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+        });
+});

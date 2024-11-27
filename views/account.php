@@ -6,6 +6,17 @@ if ($_SESSION['loggedin'] !== true) {
 include_once('../classes/Product.php');
 include_once('../classes/Pictures.php');
 include_once('../classes/ProductOptions.php');
+include_once('../classes/Order.php');
+include_once('../classes/User.php');
+include_once('../classes/DeliveryLocations.php');
+
+$user = new User();
+$result = $user->getAllFromEmail($_SESSION['email']);
+$userid = $result['id'];
+
+$locations = Deliverylocation::getDeliveryLocations($userid);
+$activeLocation = Deliverylocation::getActive($userid);
+
 ?><!DOCTYPE html>
 <html lang="en">
 <head>
@@ -21,16 +32,19 @@ include_once('../classes/ProductOptions.php');
         <section class="acc_left">
             <section class="account_info">
                 <div class="flex_img">
-                    <img src="../images/0bd73bfec9d3f645b06bea1a433fc642.gif" alt="profile picture">
-                    <div>
-                        <h1>Arthur De Klerck</h1>
-                        <p>arthur.deklerck@gmail.com</p>
+                    <div class="flex_img_name">
+                        <img src="../images/0bd73bfec9d3f645b06bea1a433fc642.gif" alt="profile picture">
+                        <div>
+                            <h1><?php echo $result['first_name'] ?></h1>
+                            <p><?php echo $result['email'] ?></p>
+                        </div>
                     </div>
+                    <p class="btn_adress" id="edit_ww">Edit</p>
                 </div>
         
                 <div class="balance">
                     <h2>Balans:</h2>
-                    <p>€188</p>
+                    <p>€<?php echo $result['currency']?></p>
                 </div>
 
                 <p class="add_balance">Balans toevoegen</p>
@@ -45,10 +59,10 @@ include_once('../classes/ProductOptions.php');
                     </div>
                 </div>
                 <div class="adress_grid_chosen">
-                    <p class="adress_name">Arthur De Klerck</p>
-                    <p>Merbeekstraat 1</p>
-                    <p>3360 Bierbeek</p>
-                    <p>België</p>
+                    <p class="adress_name"><?php echo $activeLocation['adress_naam']?></p>
+                    <p><?php echo $activeLocation['street_name']." ".$activeLocation['house_number']?></p>
+                    <p><?php echo $activeLocation['postal_code']." ".$activeLocation['city']?></p>
+                    <p><?php echo $activeLocation['country']?></p>
                 </div>
 
                 <div class="adress">
@@ -58,41 +72,16 @@ include_once('../classes/ProductOptions.php');
                         <p class="btn_adress" id="editButton">Edit</p>
                     </div>
                 </div>
-                <div class="adress_grid" data-id="1">
-                    <div class="delete_adress"></div>
-                    <p class="adress_name">Arthur De Klerck</p>
-                    <p>Merbeekstraat 1</p>
-                    <p>3360 Bierbeek</p>
-                    <p>België</p>
-                </div>
-                <div class="divider_adress"></div>
-
-                <div class="adress_grid" data-id="2">
-                    <div class="delete_adress"></div>
-                    <p class="adress_name">Arthur De Klerck</p>
-                    <p>Merbeekstraat 1</p>
-                    <p>3360 Bierbeek</p>
-                    <p>België</p>
-                </div>
-                <div class="divider_adress"></div>
-
-                <div class="adress_grid" data-id="3">
-                    <div class="delete_adress"></div>
-                    <p class="adress_name">Arthur De Klerck</p>
-                    <p>Merbeekstraat 1</p>
-                    <p>3360 Bierbeek</p>
-                    <p>België</p>
-                </div>
-                <div class="divider_adress"></div>
-
-                <div class="adress_grid" data-id="4">
-                    <div class="delete_adress"></div>
-                    <p class="adress_name">Arthur De Klerck</p>
-                    <p>Merbeekstraat 1</p>
-                    <p>3360 Bierbeek</p>
-                    <p>België</p>
-                </div>
-                <div class="divider_adress"></div>
+                <?php foreach($locations as $location):?>
+                    <div class="adress_grid" data-id="<?php echo $location['id'] ?>">
+                        <div class="delete_adress" id="delete_adress"></div>
+                        <p class="adress_name"><?php echo $location['adress_naam']?></p>
+                        <p><?php echo $location['street_name']." ".$location['house_number']?></p>
+                        <p><?php echo $location['postal_code']." ".$location['city']?></p>
+                        <p><?php echo $location['country']?></p>
+                    </div>
+                    <div class="divider_adress"></div>
+                <?php endforeach?>
             </section>
         </section>
 
@@ -191,11 +180,13 @@ include_once('../classes/ProductOptions.php');
                 <div class="modal-content">
                     <div class="close"></div>
                     <h2>Nieuw Adres Toevoegen</h2>
-                    <form id="addressForm">
+                    <form id="addressForm" method="POST">
                         <label for="name">Naam:</label>
-                        <input type="text" id="name" name="name" required>
+                        <input type="text" id="name" name="adress_naam" required>
                         <label for="street">Straat:</label>
-                        <input type="text" id="street" name="street" required>
+                        <input type="text" id="street" name="street_name" required>
+                        <label for="number">Huisnummer:</label>
+                        <input type="text" id="number" name="house_number" required>
                         <label for="postal_code">Postcode:</label>
                         <input type="text" id="postal_code" name="postal_code" required>
                         <label for="city">Stad:</label>

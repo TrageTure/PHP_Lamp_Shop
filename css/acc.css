@@ -99,10 +99,11 @@ img{
     position: absolute;
     right: 0;
     top: 0;
-    background-color: white;
+    background-color: #ffffff;
     background-size: cover;
     border-radius: 100%;
     cursor: pointer;
+    display: none;
 }
 
 .btn_adress{
@@ -301,4 +302,10 @@ input{
         transform: rotate(0);
         cursor: pointer;
     }
+}
+
+.flex_img_name{
+    display: flex;
+    gap: 1em;
+    align-items: center;
 }
