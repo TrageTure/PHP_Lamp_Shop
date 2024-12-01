@@ -52,7 +52,7 @@ $activeLocation = Deliverylocation::getActive($userid);
 
                 <p class="add_balance">Balans toevoegen</p>
             </section>
-            <div class="bckgrnd_password hidden">
+            <div id="bckgrnd_password" class="hidden">
                 <section class="password-modal" id="password-modal">
                     <div class="modal-content">
                         <h2>Wachtwoord aanpassen</h2>
@@ -65,6 +65,8 @@ $activeLocation = Deliverylocation::getActive($userid);
     
                             <label for="confirm_password">Bevestig nieuw wachtwoord:</label>
                             <input type="password" id="confirm_password" name="confirm_password" required>
+
+                            <div class="error hidden" id="error"></div>
     
                             <button type="submit" class="btn_save">Opslaan</button>
                             <button type="button" class="btn_cancel" id="cancel-password">Annuleren</button>

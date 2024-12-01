@@ -257,6 +257,16 @@ label{
     transition: all 0.3s ease;
 }
 
+button{
+    padding: 0.25em 0.5em;
+    background-color: #e67a14;
+    border: #e67a14 3px solid;
+    border-radius: 10px;
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
 .close{
     background-image: url(../images/close.svg);
     width: 30px;
@@ -360,7 +370,7 @@ input{
     gap: 1em;
 }
 
-.bckgrnd_password{
+#bckgrnd_password{
     position: fixed;
     width: 100vw;
     height: 100vh;
@@ -368,4 +378,11 @@ input{
     left: 0;
     background-color: rgba(0, 0, 0, 0.5);
     z-index: 1000;
+}
+
+.error{
+    background-color: rgb(224, 60, 60);
+    padding: 0em 0.75em;
+    border-radius: 5px;
+    color: white;
 }

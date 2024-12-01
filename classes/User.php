@@ -123,5 +123,48 @@ class User{
         $user = $statement->fetch(PDO::FETCH_ASSOC); 
         return $user;
     }
+
+    //een functie om wachtwoord te veranderen waar de gebruiker eerst zen oude passwoord moet ingeven
+    public function changePassword($oldPassword, $newPassword) {
+        if (!$this->email) {
+            throw new Exception('Email address is not set');
+        }
+    
+        $conn = Db::connect();
+    
+        try {
+            $conn->beginTransaction();
+            $statement = $conn->prepare('SELECT PASSWORD FROM users WHERE email = :email');
+            $statement->bindParam(':email', $this->email);
+            $statement->execute();
+            $user = $statement->fetch();
+    
+            if ($user && isset($user['PASSWORD']) && !is_null($user['PASSWORD'])) {
+                if (password_verify($oldPassword, $user['PASSWORD'])) {
+                    $newPasswordHash = password_hash($newPassword, PASSWORD_DEFAULT, ['cost' => 12]);
+    
+                    $updateStatement = $conn->prepare('UPDATE users SET PASSWORD = :password WHERE email = :email');
+                    $updateStatement->bindParam(':password', $newPasswordHash);
+                    $updateStatement->bindParam(':email', $this->email);
+    
+                    // Gebruik een transactie
+                    $updateStatement->execute();
+                    $conn->commit();
+    
+                    return true;
+                } else {
+                    throw new Exception('Onjuist huidig passwoord');
+                    $result['div'] = 'current_password';
+                }
+            } else {
+                throw new Exception('User not found');
+            }
+        } catch (Exception $e) {
+            $conn->rollBack(); 
+            throw $e;
+        }
+    }
+
+
 }
 ?>

@@ -238,3 +238,56 @@ function chooseAddressHandler(event) {
         }
     });
 }
+
+//ajax voor aanpassen wachtwoord
+const button = document.getElementById('edit_ww');
+// const passwordForm = document.getElementById('password-modal');
+const passwordBackground = document.getElementById('bckgrnd_password');
+
+button.addEventListener('click', () => {
+    passwordBackground.classList.remove('hidden');
+});
+
+const closePassword = document.getElementById('cancel-password');
+
+closePassword.addEventListener('click', () => {
+    passwordBackground.classList.add('hidden');
+    console.log('closed');
+});
+
+const passwordForm = document.getElementById('passwordForm');
+const error = document.getElementById('error');
+
+passwordForm.addEventListener('submit', (e) => {
+    console.log(e.target.value);
+    e.preventDefault();
+
+    const formData = new FormData(passwordForm);
+
+    fetch('../process/change_password.php', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.json())
+    .then(result => {
+        if (result.status === 'success') {
+            // location.reload();
+            passwordBackground.classList.add('hidden');
+        }
+        else {
+            const errorDiv = document.getElementById(`${result.error_div}`);
+            error.textContent = result.message;
+            error.style.display = 'block';
+            errorDiv.style.border = '3px solid red';
+            setTimeout(() => {
+                error.style.display = 'none';
+                errorDiv.style.border = '#415f94 3px solid';
+            }, 3000);   
+            console.log(result.error_div);
+        }
+    })
+    .catch((error) => {
+        console.error('Error:', error);
+    });
+}
+);
