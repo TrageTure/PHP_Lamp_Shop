@@ -52,6 +52,7 @@ if (isset($_SESSION['cart'])) {
 
         <?php if (empty($_SESSION['cart'])): ?>
             <h2 class="empty_cart">Je winkelwagen is leeg</h2>
+            <h3 class="btn_bestellen hidden">Bestellen!</h3>
         <?php else: ?>
             <div class="totaal_bedrag">
                 <h2>Totaal bedrag:</h2>

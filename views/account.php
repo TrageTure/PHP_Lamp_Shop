@@ -39,7 +39,10 @@ $activeLocation = Deliverylocation::getActive($userid);
                             <p><?php echo $result['email'] ?></p>
                         </div>
                     </div>
-                    <p class="btn_adress" id="edit_ww">Edit</p>
+                    <div class="profile_btns">
+                        <p class="btn_adress" id="edit_ww">Edit</p>
+                        <a href="../process/logout.php" class="btn_adress">Log out</a>
+                    </div>
                 </div>
         
                 <div class="balance">
@@ -48,21 +51,44 @@ $activeLocation = Deliverylocation::getActive($userid);
                 </div>
 
                 <p class="add_balance">Balans toevoegen</p>
-                <a href="../process/logout.php">Log out</a>
             </section>
+            <div class="bckgrnd_password hidden">
+                <section class="password-modal" id="password-modal">
+                    <div class="modal-content">
+                        <h2>Wachtwoord aanpassen</h2>
+                        <form id="passwordForm">
+                            <label for="current_password">Huidig wachtwoord:</label>
+                            <input type="password" id="current_password" name="current_password" required>
+    
+                            <label for="new_password">Nieuw wachtwoord:</label>
+                            <input type="password" id="new_password" name="new_password" required>
+    
+                            <label for="confirm_password">Bevestig nieuw wachtwoord:</label>
+                            <input type="password" id="confirm_password" name="confirm_password" required>
+    
+                            <button type="submit" class="btn_save">Opslaan</button>
+                            <button type="button" class="btn_cancel" id="cancel-password">Annuleren</button>
+                        </form>
+                    </div>
+                </section>
+            </div>
 
             <section class="adresses">
             <div class="adress">
                     <h2>Levering adress</h2>
                     <div class="btn_grid">
-                        <p class="btn_adress">Choose one</p>
+                        <p class="btn_adress" id="choose_btn">Choose one</p>
                     </div>
                 </div>
                 <div class="adress_grid_chosen">
+                    <?php if (!$activeLocation):?>
+                        <p>Geen actief adres</p>
+                    <?php else:?>
                     <p class="adress_name"><?php echo $activeLocation['adress_naam']?></p>
                     <p><?php echo $activeLocation['street_name']." ".$activeLocation['house_number']?></p>
                     <p><?php echo $activeLocation['postal_code']." ".$activeLocation['city']?></p>
                     <p><?php echo $activeLocation['country']?></p>
+                    <?php endif?>
                 </div>
 
                 <div class="adress">
@@ -72,16 +98,24 @@ $activeLocation = Deliverylocation::getActive($userid);
                         <p class="btn_adress" id="editButton">Edit</p>
                     </div>
                 </div>
-                <?php foreach($locations as $location):?>
-                    <div class="adress_grid" data-id="<?php echo $location['id'] ?>">
-                        <div class="delete_adress" id="delete_adress"></div>
-                        <p class="adress_name"><?php echo $location['adress_naam']?></p>
-                        <p><?php echo $location['street_name']." ".$location['house_number']?></p>
-                        <p><?php echo $location['postal_code']." ".$location['city']?></p>
-                        <p><?php echo $location['country']?></p>
-                    </div>
-                    <div class="divider_adress"></div>
-                <?php endforeach?>
+                <div class="adress_flex_">
+                    <?php if (empty($locations)):?>
+                        <div class="adress_grid">
+                            <p>Geen adressen</p>
+                        </div>
+                    <?php else:?>
+                    <?php foreach($locations as $location):?>
+                        <div class="adress_grid">
+                            <div class="delete_adress" id="delete_adress" data-id="<?php echo $location['id'] ?>"></div>
+                            <p class="adress_name"><?php echo $location['adress_naam']?></p>
+                            <p><span class="street_name"><?php echo $location['street_name']?></span> <span class="house_number"><?php echo $location['house_number']?></span></p>
+                            <p><span class="postal_code"><?php echo $location['postal_code']?></span> <span class="city"><?php echo $location['city']?></span></p>
+                            <p><?php echo $location['country']?></p>
+                        </div>
+                        <div class="divider_adress" data-id="<?php echo $location['id'] ?>"></div>
+                    <?php endforeach?>
+                    <?php endif?>
+                </div>
             </section>
         </section>
 

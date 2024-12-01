@@ -71,4 +71,5 @@ btn_bestellen.addEventListener("click", () => {
 
 account.addEventListener("click", () => {
     window.location.href = "../views/account.php";
+    console.log('clicked')
 });
