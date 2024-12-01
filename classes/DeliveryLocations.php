@@ -177,7 +177,7 @@
 
         public static function getDeliveryLocations($user_id) {
             $conn = Db::connect();
-            $statement = $conn->prepare("select * from delivery_locations where user_id = :user_id");
+            $statement = $conn->prepare("select * from delivery_locations where user_id = :user_id order by id desc");
             $statement->bindValue(":user_id", $user_id);
             $statement->execute();
             $result = $statement->fetchAll(PDO::FETCH_ASSOC);
@@ -190,7 +190,7 @@
             $statement = $conn->prepare("update delivery_locations set is_active_adress = 0 where user_id = :user_id");
             $statement->bindValue(":user_id", $user_id);
             $statement->execute();
-            $statement = $conn->prepare("update delivery_locations set is_active = 1 where id = :id");
+            $statement = $conn->prepare("update delivery_locations set is_active_adress = 1 where id = :id");
             $statement->bindValue(":id", $id);
             $statement->execute();
         }
@@ -199,6 +199,25 @@
         public static function getActive($user_id) {
             $conn = Db::connect();
             $statement = $conn->prepare("select * from delivery_locations where user_id = :user_id and is_active_adress = 1");
+            $statement->bindValue(":user_id", $user_id);
+            $statement->execute();
+            $result = $statement->fetch(PDO::FETCH_ASSOC);
+            return $result;
+        }
+
+        //functie voor de adress te verwijderen
+        public static function deleteAdress($id, $user_id) {
+            $conn = Db::connect();
+            $statement = $conn->prepare("delete from delivery_locations where id = :id and user_id = :user_id");
+            $statement->bindValue(":id", $id);
+            $statement->bindValue(":user_id", $user_id);
+            $statement->execute();
+        }
+
+        //functie voor laatste adres te krijgen
+        public static function getLastAdress($user_id) {
+            $conn = Db::connect();
+            $statement = $conn->prepare("select * from delivery_locations where user_id = :user_id order by id desc limit 1");
             $statement->bindValue(":user_id", $user_id);
             $statement->execute();
             $result = $statement->fetch(PDO::FETCH_ASSOC);

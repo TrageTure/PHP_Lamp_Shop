@@ -70,6 +70,7 @@ img{
     border: #e67a14 3px solid;
     border-radius: 15px;
     position: relative;
+    width: 90%;
 }
 
 .adress_grid_chosen{
@@ -103,7 +104,6 @@ img{
     background-size: cover;
     border-radius: 100%;
     cursor: pointer;
-    display: none;
 }
 
 .btn_adress{
@@ -308,4 +308,64 @@ input{
     display: flex;
     gap: 1em;
     align-items: center;
+}
+
+.edit-address-form{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.adress_flex_{
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.profile_btns{
+    display: flex;
+    gap: 1em;
+    justify-content: space-between;
+}
+
+.profile_btns a{
+    text-decoration: none;
+    font-size: 14pt;
+    margin: 0;
+    padding:0em 0.5em;
+    font-weight: 500;
+    color: #415f94;
+    font-family: "Lato-regular", sans-serif;
+}
+
+.password-modal{
+    background-color: white;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.password-modal input{
+    padding: 0.25em 0.5em;
+    border: #415f94 3px solid;
+    border-radius: 10px;
+}
+
+#passwordForm{
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+}
+
+.bckgrnd_password{
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
 }

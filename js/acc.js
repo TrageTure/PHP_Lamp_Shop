@@ -26,15 +26,6 @@ const deleteButtons = document.querySelectorAll('.delete_adress');
 
 
 editButton.addEventListener('click', () => {
-    if (editMode === true) {
-        deleteButtons.forEach(button => {
-            button.style.display = 'none';
-        });
-    } else {
-        deleteButtons.forEach(button => {
-            button.style.display = 'block';
-        });
-    }
     console.log(`isEditing = ${isEditing}`)
     if (editMode === false && isEditing === false) {
         editMode = true;
@@ -71,22 +62,69 @@ addresses.forEach(address => {
 });
 
 function makeAddressEditable(address) {
+    // Haal de gegevens op uit de HTML-structuur
     const nameText = address.querySelector('.adress_name').textContent;
-    const streetText = address.querySelectorAll('p')[1].textContent;
-    const cityText = address.querySelectorAll('p')[2].textContent;
-    const countryText = address.querySelectorAll('p')[3].textContent;
+    const streetText = address.querySelector('.street_name').textContent;
+    const houseNumberText = address.querySelector('.house_number').textContent;
+    const postalCodeText = address.querySelector('.postal_code').textContent;
+    const cityText = address.querySelector('.city').textContent;
+    const countryText = address.querySelector('p:last-of-type').textContent; // Laatste <p> bevat het land
+    const id = address.querySelector('.delete_adress').getAttribute('data-id');
 
+    // Verander de HTML in een formulier om de waarden aan te passen
     address.innerHTML = `
-        <input type="text" class="name-input" value="${nameText}">
-        <input type="text" class="street-input" value="${streetText}">
-        <input type="text" class="city-input" value="${cityText}">
-        <input type="text" class="country-input" value="${countryText}">
-        <button class="save-button">Save</button>
+        <form class="edit-address-form">
+            <div class="delete_adress" data-id="${id}"></div>
+            <input type="text" name="name" class="name-input" value="${nameText}">
+            <input type="text" name="street" class="street-input" value="${streetText}">
+            <input type="text" name="house_number" class="house-number-input" value="${houseNumberText}">
+            <input type="text" name="postal_code" class="postal-code-input" value="${postalCodeText}">
+            <input type="text" name="city" class="city-input" value="${cityText}">
+            <input type="text" name="country" class="country-input" value="${countryText}">
+            <button type="submit" class="save-button">Save</button>
+        </form>
     `;
 
-    const saveButton = address.querySelector('.save-button');
-    saveButton.addEventListener('click', () => {
-        saveAddressChanges(address);
+    const editAddressForm = address.querySelector('.edit-address-form');
+    editAddressForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+
+        const formData = new FormData(editAddressForm);
+        const deleteButton = address.querySelector('.delete_adress');
+        const addressId = deleteButton.getAttribute('data-id');
+
+        formData.append('id', addressId);
+
+        fetch('../process/update_adress.php', {
+            method: 'POST',
+            body: formData,
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then(result => {
+                if (result.status === 'success') {
+                    // Werk de HTML bij met de nieuwe waarden
+                    address.innerHTML = `
+                        <div class="delete_adress" data-id="${addressId}"></div>
+                        <p class="adress_name">${formData.get('name')}</p>
+                        <p><span class="street_name">${formData.get('street')}</span> <span class="house_number">${formData.get('house_number')}</span></p>
+                        <p><span class="postal_code">${formData.get('postal_code')}</span> <span class="city">${formData.get('city')}</span></p>
+                        <p>${formData.get('country')}</p>
+                    `;
+                    isEditing = false;
+                    console.log(result.message); // Debug
+                } else {
+                    alert(result.message);
+                }
+            })
+            .catch(error => {
+                console.error('Fout bij het updaten:', error);
+                alert('Er is een fout opgetreden. Probeer het opnieuw.');
+            });
     });
 }
 
@@ -119,12 +157,84 @@ document.getElementById('addressForm').addEventListener('submit', (e) => {
     })
         .then(response => response.json())
         .then(result => {
-            console.log('Server response:', result);
-            if (result.success) {
-                console.log('Address added:', result.address);
+            if (result.status === 'success') {
+                location.reload();
+                background.classList.add('hidden');
             }
         })
         .catch((error) => {
             console.error('Error:', error);
         });
 });
+
+deleteButtons.forEach(button => {
+    button.addEventListener('click', (e) => {
+        const addressId = e.target.getAttribute('data-id');
+        console.log(addressId);
+        let data = new FormData();
+        data.append('addressId', addressId);
+        fetch('../process/delete_adress.php', {
+            method: 'POST',
+            body: data,
+        })
+            .then(response => response.json())
+            .then(result => {
+                const addressElement = document.querySelector(`.delete_adress[data-id="${addressId}"]`).parentElement;
+                console.log('Gevonden element:', addressElement);
+                const adress_divider = document.querySelector(`.divider_adress[data-id="${addressId}"]`);
+
+                addressElement.remove();
+                adress_divider.remove();
+                if (result.success) {
+                    console.log('Address deleted:', result.address);
+                }
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+    });
+});
+
+//choosing active adress
+// Actief adres kiezen
+const activeButton = document.getElementById('choose_btn');
+const chosenAddressContainer = document.querySelector('.adress_grid_chosen');
+let choosing_mode = false;
+
+activeButton.addEventListener('click', () => {
+    if (choosing_mode) {
+        addresses.forEach(address => {
+            address.classList.remove('edit');
+            address.removeEventListener('click', chooseAddressHandler);
+        });
+        choosing_mode = false;
+    } else {
+        addresses.forEach(address => {
+            address.classList.add('edit');
+            address.addEventListener('click', chooseAddressHandler);
+        });
+        choosing_mode = true;
+    }
+});
+
+function chooseAddressHandler(event) {
+    addresses.forEach(address => {
+        address.classList.remove('edit');
+    });
+
+    const addressId = event.currentTarget.querySelector('.delete_adress').getAttribute('data-id');
+    let data = new FormData();
+    data.append('id', addressId);
+
+    fetch('../process/choose_adress.php', {
+        method: 'POST',
+        body: data,
+    })
+    .then(response => response.json())
+    .then(result => {
+        console.log(result);
+        if (result.status === 'success') {
+            location.reload();
+        }
+    });
+}

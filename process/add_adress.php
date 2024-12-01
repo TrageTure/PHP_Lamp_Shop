@@ -25,10 +25,18 @@
         $location = new Deliverylocation($user_id, $street, $number, $city, $postal_code, $country, 0, $adress_naam);
         $location->save();
 
+        $lastAdress= Deliverylocation::getLastAdress($user_id);
+        $lastAdressId = $lastAdress['id'];
+
         $result = [
             "naam" => $adress_naam,
+            "street" => $street,
+            "number" => $number,
+            "city" => $city,
+            "postal_code" => $postal_code,
+            "country" => $country,
+            "id" => $lastAdressId,
             "status" => "success",
-            "message" => `Adress is toegevoegd`
         ];
 
         echo json_encode($result);
