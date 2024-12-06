@@ -56,5 +56,14 @@ class Order {
     public function setDeliveryOption($delivery_option) {
         $this->delivery_option = $delivery_option;
     }
+
+    public function createOrder($user_id, $full_price, $delivery_option) {
+        $conn = Db::getConnection();
+        $statement = $conn->prepare("INSERT INTO orders (user_id, full_price, delivery_option) VALUES (:user_id, :full_price, :delivery_option)");
+        $statement->bindParam(":user_id", $user_id);
+        $statement->bindParam(":full_price", $full_price);
+        $statement->bindParam(":delivery_option", $delivery_option);
+        $statement->execute();
+    }
 }
 ?>

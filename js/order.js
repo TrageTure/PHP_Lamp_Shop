@@ -48,7 +48,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const deleteButtons = document.querySelectorAll('.delete');
     const plus = document.querySelectorAll('.plus');
     const minus = document.querySelectorAll('.minus');
-    const quantity = document.querySelectorAll('.amount_count');
+    // const quantity = document.querySelectorAll('.amount_count');
 
     // Verwijder item uit de winkelwagen
     deleteButtons.forEach(button => {
@@ -129,13 +129,26 @@ document.addEventListener('DOMContentLoaded', function() {
 
 });
 
-const btn_bestellen = document.querySelector('.btn_bestellen');
-btn_bestellen.addEventListener('click', function() {
+const order_btn_bestellen = document.querySelector('.order_btn_bestellen');
+order_btn_bestellen.addEventListener('click', function () {
+    selectedDelivery = document.querySelector('input[name="delivery"]:checked');
+    const deliveryOptionChosen = selectedDelivery.value;
+    console.log(selectedDelivery);
+    const productPrice = parseFloat(document.querySelector('.product_price').innerText.replace('€', ''));
+    const deliveryPrice = selectedDelivery.value === "express" ? 7.99 : 0;
+    const totalPrice = productPrice + deliveryPrice;
+
+    let data = {
+        delivery: deliveryOptionChosen,
+        total_price: totalPrice
+    };
+
     fetch('../process/place_order.php', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
-        }
+        },
+        body: JSON.stringify(data)
     })
     .then(response => response.json())
     .then(result => {
