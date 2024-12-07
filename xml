@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<configuration>
+  <system.webServer>
+    <handlers>
+      <add name="PHP_via_FastCGI" path="*.php" verb="*" modules="FastCgiModule" scriptProcessor="C:\php\php-cgi.exe" resourceType="Either" requireAccess="Script" />
+    </handlers>
+    <defaultDocument>
+      <files>
+        <add value="../views/index.php" />
+      </files>
+    </defaultDocument>
+  </system.webServer>
+</configuration>
