@@ -8,7 +8,7 @@ class Db {
                 // Update the connection details for Azure MySQL
                 $host = 'php-lamp-shop-server.mysql.database.azure.com';
                 $dbname = 'php-lamp-shop-database';
-                $username = 'tgprwugenq'; // Vervang door jouw gebruikersnaam
+                $username = 'tgpwrugenq'; // Vervang door jouw gebruikersnaam
                 $password = 'nH$DrdFPn85MIbbo'; // Vervang door jouw wachtwoord
                 $port = '3306'; // Standaard MySQL-poort
 
