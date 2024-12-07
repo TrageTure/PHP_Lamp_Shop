@@ -55,19 +55,23 @@ $user_pf_pic = $result['profile_pic'];
             <?php else:?>
                 <h1 class="artikelen_titel">Geen artikelen in winkelwagen</h1>
             <?php endif?>
-            
+
             <section class="payment_section">
             <h1>Betaling</h1>
             <p>Uw huidige saldo: €<?php echo number_format($balance, 2); ?></p>
-            <form id="paymentForm" method="POST" action="../process/place_order.php">
+            <form id="paymentForm" method="POST">
                 <div class="form_group">
                     <label for="amount">Te betalen bedrag:</label>
-                    <input type="text" id="amount" name="amount" value="€<?php echo $_SESSION['total_price'] ?>" readonly> <!-- Verander dit naar het juiste bedrag -->
+                    <input type="text" id="amount" name="amount" value="€
+                    <?php if(isset($_SESSION['total_price'])){echo $_SESSION['total_price'];}?>" readonly> <!-- Verander dit naar het juiste bedrag -->
                 </div>
                 <button type="submit" class="submit">Betalen</button>
             </form>
         </section>
-        <?php var_dump($_SESSION)?>
+
+        <section id="feedback_order">
+            <h1 id="feedback_title">Feedback</h1>
+            <p id="feedback_message"></p>
         </section>
     </main>
     <script src="../js/pay.js"></script>

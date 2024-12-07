@@ -183,3 +183,9 @@ main {
     margin-top: 2em;
     margin-bottom: 2em;
 }
+
+#feedback_order{
+    display: none;
+    border: 3px solid red;
+    background-color: white;
+}

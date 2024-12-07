@@ -73,3 +73,9 @@ account.addEventListener("click", () => {
     window.location.href = "../views/account.php";
     console.log('clicked')
 });
+
+const btn_admin = document.querySelector('.btn_admin');
+
+btn_admin.addEventListener("click", () => {
+    window.location.href = "../views/admin_products.php";
+});

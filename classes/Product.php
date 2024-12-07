@@ -171,5 +171,35 @@ class Product {
         $statement->execute();
         return $statement->fetchAll(PDO::FETCH_ASSOC);
     }
+
+    //categorie op basis van product_id
+    public function getCategoryByProductId($product_id) {
+        $conn = Db::connect();
+        $statement = $conn->prepare("SELECT product_categories_id FROM products WHERE id = :product_id");
+        $statement->bindValue(":product_id", $product_id);
+        $statement->execute();
+        return $statement->fetch(PDO::FETCH_ASSOC);
+    }
+
+    public function update() {
+        $conn = Db::connect();
+    
+        // Zorg ervoor dat er een ID is ingesteld, anders gooien we een exception
+        if (!$this->id) {
+            throw new Exception("Geen product ID gevonden voor update.");
+        }
+    
+        // Voer een UPDATE uit op basis van het bestaande ID
+        $statement = $conn->prepare("
+            UPDATE products 
+            SET title = :title, product_categories_id = :category_id, description = :description 
+            WHERE id = :id
+        ");
+        $statement->bindValue(":title", $this->title);
+        $statement->bindValue(":category_id", $this->categoryId);
+        $statement->bindValue(":description", $this->description);
+        $statement->bindValue(":id", $this->id, PDO::PARAM_INT);
+        $statement->execute();
+    }
 }
 ?>

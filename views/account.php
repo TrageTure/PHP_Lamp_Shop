@@ -66,8 +66,6 @@ $activeLocation = Deliverylocation::getActive($userid);
                     <h2>Balans:</h2>
                     <p>€<?php echo $result['currency']?></p>
                 </div>
-
-                <p class="add_balance">Balans toevoegen</p>
             </section>
             <div id="bckgrnd_password" class="hidden">
                 <section class="password-modal" id="password-modal">

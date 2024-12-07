@@ -8,9 +8,17 @@ class Options {
     private $stockAmount;
     private $productId;
     private $price;
+    private $categoryId;
+
 
     public function getId() {
         return $this->id;
+    }
+
+
+    public function setId($id) {
+        $this->id = $id;
+        return $this;
     }
 
     public function getColorId() {
@@ -30,11 +38,11 @@ class Options {
         $this->sizeId = $sizeId;
         return $this;
     }
-
+    // Getter
     public function getStockAmount() {
         return $this->stockAmount;
     }
-
+    
     public function setStockAmount($stockAmount) {
         $this->stockAmount = $stockAmount;
         return $this;
@@ -51,6 +59,18 @@ class Options {
 
     public function setPrice($price) {
         $this->price = $price;
+        return $this;
+    }
+
+    public function getCategoryId()
+    {
+        return $this->categoryId;
+    }
+
+    public function setCategoryId($categoryId)
+    {
+        $this->categoryId = $categoryId;
+
         return $this;
     }
 
@@ -117,8 +137,14 @@ class Options {
 
     public function getOptionsByProductId($productId) {
         $conn = Db::connect();
-        $statement = $conn->prepare("SELECT * FROM product_options WHERE product_id = :product_id");
-        $statement->bindValue(":product_id", $productId);
+        $statement = $conn->prepare("
+            SELECT po.id, po.stock_amount, po.price, c.color_name, s.size
+            FROM product_options po
+            JOIN colors c ON po.color_id = c.id
+            JOIN size s ON po.size_id = s.id
+            WHERE po.product_id = :product_id
+        ");
+        $statement->bindValue(':product_id', $productId, PDO::PARAM_INT);
         $statement->execute();
         return $statement->fetchAll(PDO::FETCH_ASSOC);
     }
@@ -158,6 +184,24 @@ class Options {
         $statement->bindValue(":size_id", $sizeId, PDO::PARAM_INT);
         $statement->execute();
         return $statement->fetch(PDO::FETCH_ASSOC)['price'];
+    }
+
+    public function update() {
+        $conn = Db::connect();
+    
+        if (!$this->id) {
+            throw new Exception("Geen optie ID gevonden voor update.");
+        }
+    
+        $statement = $conn->prepare("
+            UPDATE product_options 
+            SET stock_amount = :stock_amount, price = :price 
+            WHERE id = :id
+        ");
+        $statement->bindValue(":stock_amount", $this->stockAmount, PDO::PARAM_INT);
+        $statement->bindValue(":price", $this->price);
+        $statement->bindValue(":id", $this->id, PDO::PARAM_INT);
+        $statement->execute();
     }
 }
 ?>

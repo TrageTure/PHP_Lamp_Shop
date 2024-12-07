@@ -263,3 +263,23 @@ nav{
 .hidden{
     display: none;
 }
+
+.btn_admin{
+    width: fit-content;
+    height: fit-content;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1em;
+    padding:0em 0.5em;
+    font-weight: 500;
+    border: #e67a14 3px solid;
+    border-radius: 15px;
+    color: #415f94;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn_admin:hover{
+    scale: 1.05;
+}

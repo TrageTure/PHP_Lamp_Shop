@@ -57,15 +57,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $new_balance = $balance - $total_price;
         $user->updateBalance($user_id, $new_balance);
 
+        // Succesvolle respons
+        echo json_encode(['success' => true, 'message' => 'Bestelling succesvol geplaatst.']);
         // Wis de sessiegegevens
         unset($_SESSION['cart'], $_SESSION['delivery_option'], $_SESSION['delivery_location'], $_SESSION['total_price']);
 
-        // Redirect naar de bevestigingspagina
-        header('Location: ../views/index.php');
         exit;
 
     } catch (Exception $e) {
-        echo "Er ging iets mis bij het plaatsen van de bestelling: " . $e->getMessage();
+        echo json_encode(['success' => false, 'message' => $e->getMessage()]);
         exit;
     }
 } else {
@@ -73,3 +73,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     exit;
 }
 ?>
+

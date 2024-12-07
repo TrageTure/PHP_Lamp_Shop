@@ -2,6 +2,13 @@
 include_once('../classes/Db.php');
 include_once('../classes/Product.php');
 include_once('../classes/ProductOptions.php');
+include_once('../classes/User.php');
+
+//kijken of gebruiker admin is
+
+$user = new User();
+$result = $user->getAllFromEmail($_SESSION['email']);
+$user_pf_pic = $result['profile_pic'];
 
 $totalAmount = 0;
 if (isset($_SESSION['cart'])) {
@@ -15,6 +22,9 @@ if (isset($_SESSION['cart'])) {
 <nav>
     <a href="index.php" class="logo"></a>
     <div class="container_nav">
+    <?php if ($result['is_admin'] === 1):?>
+            <p class="btn_admin">Admin</p>
+            <?php endif; ?>
         <div class="shopping_cart_flex">
             <div class="shopping_cart">
                 <p class="count"><?php echo $totalAmount?></p>
