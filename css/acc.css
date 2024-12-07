@@ -25,6 +25,33 @@ img{
     border: 3px solid #e67a14;
 }
 
+.pf_pic{
+    width: 75px;
+    height: 75px;
+    border-radius: 100%;
+    border: 3px solid #e67a14;
+    background-size: cover;
+    background-position: center;
+}
+
+.edit_pf_pic{
+    width: 100%;
+    height: 100%;
+    border-radius: 100%;
+    background-color: rgba(244, 244, 244, 0.762);
+    background-image: url(../images/pencil\ \(1\).svg);
+    background-position: center;
+    background-size: 35px;
+    background-repeat: no-repeat;
+    cursor: pointer;
+    opacity: 0;
+    transition: all 0.3s ease;
+}
+
+.edit_pf_pic:hover{
+    opacity: 1;
+}
+
 .flex_img{
     display: flex;
     gap: 1em;
@@ -449,4 +476,82 @@ input{
 
 h1{
     margin: 0;
+}
+
+/*! form pf pic*/
+.profile_picture_section {
+    background-color: white;
+    padding: 2em;
+    border-radius: 15px;
+    width: 100%;
+    max-width: 600px;
+    margin: 2em auto;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.profile_picture_section h2 {
+    font-size: 24pt;
+    color: #415f94;
+    margin-bottom: 1em;
+}
+
+.form_group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1em;
+}
+
+.form_group label {
+    font-weight: 500;
+    color: #50504f;
+    margin-bottom: 0.5em;
+}
+
+.form_group input {
+    padding: 0.5em;
+    border: #415f94 3px solid;
+    border-radius: 10px;
+}
+
+.submit {
+    padding: 0.5em 1em;
+    background-color: #e67a14;
+    border: #e67a14 3px solid;
+    border-radius: 10px;
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 16pt;
+    width: 100%;
+}
+
+.submit:hover {
+    scale: 1.05;
+}
+
+#background_pf_pic{
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+}
+
+#close_pf_pic{
+    background-image: url(../images/close.svg);
+    width: 30px;
+    height: 30px;
+    background-color: white;
+    position: absolute;
+    top: -8.5px;
+    right: -8.5px;
+    border-radius: 100%;
+    background-position: center;
+    background-size: cover;
+    cursor: pointer;
 }

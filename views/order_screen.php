@@ -10,6 +10,11 @@ include_once('../classes/Order.php');
 include_once('../classes/DeliveryLocations.php');
 include_once('../classes/User.php');
 
+$user = new User();
+$result = $user->getAllFromEmail($_SESSION['email']);
+$userid = $result['id'];
+$user_pf_pic = $result['profile_pic'];
+
 $product = new Product();
 $randomProducts = $product->getRandomProducts();
 

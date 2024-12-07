@@ -6,6 +6,12 @@ if ($_SESSION['loggedin'] !== true) {
 include_once('../classes/Db.php');
 include_once('../classes/Product.php');
 include_once('../classes/Pictures.php');
+include_once('../classes/User.php');
+
+$user = new User();
+$result = $user->getAllFromEmail($_SESSION['email']);
+$userid = $result['id'];
+$user_pf_pic = $result['profile_pic'];
 
 $product = new Product();
 

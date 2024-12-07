@@ -5,6 +5,8 @@ class User{
     private $lastname;
     private $email;
     private $password;
+    private $currency;
+    private $profile_pic;
 
     public function getFirstname()
     {   
@@ -63,6 +65,18 @@ class User{
         }
         $cost = 12;
         $this->password = password_hash($password, PASSWORD_DEFAULT, ['cost' => $cost]);
+        return $this;
+    }
+
+    public function getProfile_pic()
+    {
+        return $this->profile_pic;
+    }
+
+    public function setProfile_pic($profile_pic)
+    {
+        $this->profile_pic = $profile_pic;
+
         return $this;
     }
 
@@ -181,6 +195,15 @@ class User{
         $statement->execute();
         $user = $statement->fetch(PDO::FETCH_ASSOC); 
         return $user;
+    }
+
+    //functie om pf_pic te updaten
+    public function updateProfilePic($user_id, $profile_pic) {
+        $conn = Db::connect();
+        $statement = $conn->prepare('UPDATE users SET profile_pic = :profile_pic WHERE id = :user_id');
+        $statement->bindParam(':profile_pic', $profile_pic);
+        $statement->bindParam(':user_id', $user_id);
+        $statement->execute();
     }
 }
 ?>

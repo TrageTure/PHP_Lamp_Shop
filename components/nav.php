@@ -21,7 +21,7 @@ if (isset($_SESSION['cart'])) {
             </div>
             <div class="indicator"></div>
         </div>
-        <div class="account"></div>
+        <div class="account" style="background-image: url(../images/pf_pics/<?php echo $user_pf_pic?>);"></div>
     </div>
 
     <div class="shopping_cart_items">

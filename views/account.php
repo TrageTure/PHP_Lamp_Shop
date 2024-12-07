@@ -14,6 +14,7 @@ include_once('../classes/Orderline.php');
 $user = new User();
 $result = $user->getAllFromEmail($_SESSION['email']);
 $userid = $result['id'];
+$user_pf_pic = $result['profile_pic'];
 
 $locations = Deliverylocation::getDeliveryLocations($userid);
 $activeLocation = Deliverylocation::getActive($userid);
@@ -34,7 +35,22 @@ $activeLocation = Deliverylocation::getActive($userid);
             <section class="account_info">
                 <div class="flex_img">
                     <div class="flex_img_name">
-                        <img src="../images/0bd73bfec9d3f645b06bea1a433fc642.gif" alt="profile picture">
+                        <div class="pf_pic" id="pf_pic" style="background-image: url(../images/pf_pics/<?php echo $user_pf_pic?>);">
+                            <div class="edit_pf_pic" id="edit_pf_pic"></div>
+                        </div>
+                        <div id="background_pf_pic" class="hidden">
+                            <section class="profile_picture_section">
+                                <h2>Profielfoto wijzigen</h2>
+                                <div id="close_pf_pic"></div>
+                                <form id="profilePictureForm" method="POST" enctype="multipart/form-data">
+                                    <div class="form_group">
+                                        <label for="profile_picture">Kies een nieuwe profielfoto:</label>
+                                        <input type="file" id="profile_picture" name="profile_picture" accept="image/*" required>
+                                    </div>
+                                    <button type="submit" class="submit">Uploaden</button>
+                                </form>
+                            </section>
+                        </div>
                         <div>
                             <h1><?php echo $result['first_name'] ?></h1>
                             <p><?php echo $result['email'] ?></p>

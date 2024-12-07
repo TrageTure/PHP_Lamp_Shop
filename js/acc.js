@@ -291,3 +291,44 @@ passwordForm.addEventListener('submit', (e) => {
     });
 }
 );
+
+const bckgrnd_pf_pic = document.getElementById('background_pf_pic');
+const closePfPic = document.getElementById('close_pf_pic');
+const changeProfilePic = document.getElementById('edit_pf_pic');
+const profilePictureForm = document.getElementById('profilePictureForm');
+
+changeProfilePic.addEventListener('click', () => {
+    bckgrnd_pf_pic.classList.remove('hidden');
+}
+);
+
+closePfPic.addEventListener('click', () => {
+    bckgrnd_pf_pic.classList.add('hidden');
+}
+);
+
+profilePictureForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+
+    const formData = new FormData(profilePictureForm);
+
+    fetch('../process/update_pf_pic.php', {
+        method: 'POST',
+        body: formData
+    })
+        .then(response => response.json())
+        .then(result => {
+            if (result.success) {
+                const pf_pic = document.getElementById('pf_pic');
+                pf_pic.style.backgroundImage = `url(../images/pf_pics/${result.message})`;
+                bckgrnd_pf_pic.classList.add('hidden');
+                profilePictureForm.reset();
+            }
+            else {
+                console.log(result.message);
+            }
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+        });
+});

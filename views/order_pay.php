@@ -11,6 +11,7 @@ $user = new User();
 $result = $user->getAllFromEmail($_SESSION['email']);
 $userid = $result['id'];
 $balance = $result['currency']; // Veronderstel dat de balans in de gebruikersgegevens zit
+$user_pf_pic = $result['profile_pic'];
 
 ?><!DOCTYPE html>
 <html lang="en">
