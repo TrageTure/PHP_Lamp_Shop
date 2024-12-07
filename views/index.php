@@ -1,7 +1,7 @@
 <?php
 session_start();
 if ($_SESSION['loggedin'] !== true) {
-    header('location: views/login.php');
+    header('location: /views/login.php');
 }
 include_once('../classes/Db.php');
 include_once('../classes/Product.php');
