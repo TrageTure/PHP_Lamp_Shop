@@ -9,7 +9,7 @@ class Db {
                 $host = 'php-lamp-shop-server.mysql.database.azure.com';
                 $dbname = 'php-lamp-shop-database';
                 $username = 'tgprwugenq'; // Vervang door jouw gebruikersnaam
-                $password = 'nH$DRdFPn85MIbbo'; // Vervang door jouw wachtwoord
+                $password = 'nH$DrdFPn85MIbbo'; // Vervang door jouw wachtwoord
                 $port = '3306'; // Standaard MySQL-poort
 
                 // Establish the connection with SSL enabled
