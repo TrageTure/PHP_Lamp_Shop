@@ -386,3 +386,67 @@ input{
     border-radius: 5px;
     color: white;
 }
+
+.delivery_location{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    background-color: #ffffff;
+    justify-items: center;
+    gap: 1em;
+}
+
+#main{
+    display: flex;
+    flex-direction: column;
+    padding: 1em;
+    border-radius: 15px;
+    margin-bottom: 1em;;
+    background-color: white;
+}
+
+.adress_grid_order{
+    display: grid;
+    grid-template-columns: 0.5fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 1em;
+    padding: 1em;
+    border: #e67a14 3px solid;
+    border-radius: 15px;
+    position: relative;
+    width: fit-content;
+}
+
+.adress_grid_order input{
+    grid-row: 1/3;
+    width: 25px;
+    height: 25px;
+    align-self: center;
+}
+
+#btn_adress{
+    width: fit-content;
+    height: fit-content;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1em;
+    padding:0em 0.5em;
+    font-weight: 500;
+    border: #e67a14 3px solid;
+    border-radius: 15px;
+    color: #415f94;
+    cursor: pointer;
+    background-color: white;
+    font-size: 18pt;
+    align-self: flex-end;
+}
+
+.flex_form{
+    display: flex;
+    flex-direction: column;
+    gap: 4em;
+}
+
+h1{
+    margin: 0;
+}

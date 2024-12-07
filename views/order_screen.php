@@ -7,6 +7,8 @@ include_once('../classes/Product.php');
 include_once('../classes/Pictures.php');
 include_once('../classes/ProductOptions.php');
 include_once('../classes/Order.php');
+include_once('../classes/DeliveryLocations.php');
+include_once('../classes/User.php');
 
 $product = new Product();
 $randomProducts = $product->getRandomProducts();
@@ -101,7 +103,6 @@ foreach ($_SESSION['cart'] as $item) {
                     </div>
                 </div>
     
-                <h3 class="order_btn_bestellen">Bestellen!</h3>
             </section>
     
             <section class="right_bottom">
@@ -119,6 +120,7 @@ foreach ($_SESSION['cart'] as $item) {
                     <h2>Totaal:</h2>
                     <h2 class="total_price">€<?php echo $totalPrice?></h2>
                 </div>
+                <h3 class="order_btn_bestellen">Bestellen!</h3>
             </section>
         </section>
     </main>

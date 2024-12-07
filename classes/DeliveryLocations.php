@@ -223,6 +223,29 @@
             $result = $statement->fetch(PDO::FETCH_ASSOC);
             return $result;
         }
+
+        //functie voor alle niet actieve adressen te krijgen
+        public static function getNotActive($user_id) {
+            $conn = Db::connect();
+            $statement = $conn->prepare("select * from delivery_locations where user_id = :user_id and is_active_adress = 0");
+            $statement->bindValue(":user_id", $user_id);
+            $statement->execute();
+            $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+            return $result;
+        }
+
+        //functie voor een adres te krijgen op basis van id
+        public static function getAdressById($id) {
+            $conn = Db::connect();
+            $statement = $conn->prepare("select * from delivery_locations where id = :id");
+            $statement->bindValue(":id", $id);
+            $statement->execute();
+            $result = $statement->fetch(PDO::FETCH_ASSOC);
+            return $result;
+        }
+        
     }
+
+    
 
 ?>

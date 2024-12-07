@@ -7,7 +7,7 @@ function updateDelivery() {
     if (selectedDelivery) {
         const deliveryId = selectedDelivery.value;
 
-        fetch(`../process/set_delivery.php`, {
+        fetch(`../process/update_delivery.php`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -129,6 +129,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 });
 
+//*! bestelling plaatsen
 const order_btn_bestellen = document.querySelector('.order_btn_bestellen');
 order_btn_bestellen.addEventListener('click', function () {
     selectedDelivery = document.querySelector('input[name="delivery"]:checked');
@@ -143,7 +144,7 @@ order_btn_bestellen.addEventListener('click', function () {
         total_price: totalPrice
     };
 
-    fetch('../process/place_order.php', {
+    fetch('../process/set_delivery.php', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -152,9 +153,8 @@ order_btn_bestellen.addEventListener('click', function () {
     })
     .then(response => response.json())
     .then(result => {
-        if (result.success) {
-            alert('Bestelling geplaatst!');
-            location.href = '../index.php';
+        if (result.status) {
+            window.location.href = 'order_choose_adress.php';
         } else {
             alert(result.message);
         }

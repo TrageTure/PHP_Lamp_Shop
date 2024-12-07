@@ -9,6 +9,7 @@ include_once('../classes/ProductOptions.php');
 include_once('../classes/Order.php');
 include_once('../classes/User.php');
 include_once('../classes/DeliveryLocations.php');
+include_once('../classes/Orderline.php');
 
 $user = new User();
 $result = $user->getAllFromEmail($_SESSION['email']);
@@ -123,74 +124,31 @@ $activeLocation = Deliverylocation::getActive($userid);
 
         <section class="right">
             <h1>Vorige bestellingen</h1>
+            <?php 
+            $orders = Order::getAllOrdersById($userid);
+            foreach($orders as $order  ):
+                $delivery = Deliverylocation::getAdressById($order['delivery_location_id']);
+            ?>
             <div class="bestelling">
-                <h2>Bestelling van 19/01/2024</h2>
+                <h2>Bestelling van <?php echo $order['order_date']?></h2>
                 <div class="divider_adress"></div>
                 <div class="images_flex">
-                    <img src="../images/product_images/67277a2ad8a95__DSC1549.jpg" alt="">
-                    <img src="../images/product_images/67277a2ad8a95__DSC1549.jpg" alt="">
-                    <img src="../images/product_images/67277a2ad8a95__DSC1549.jpg" alt="">
-                    <img src="../images/product_images/67277a2ad8a95__DSC1549.jpg" alt="">
-                    <img src="../images/product_images/67277a2ad8a95__DSC1549.jpg" alt="">
-                    <img src="../images/product_images/67277a2ad8a95__DSC1549.jpg" alt="">
-                </div>
-                <div class="flex_bestelling">
-                    <p>Status:</p>
-                    <p style="color: green;">GELEVERD</p>
-                </div>
-                <div class="flex_bestelling">
-                    <p>Bestelnummer:</p>
-                    <p>37940</p>
-                </div>
-                <div class="flex_bestelling">
-                    <p>Bedrag:</p>
-                    <p>€278</p>
-                </div>
-                <div class="flex_bestelling">
-                    <p>Verzendadres:</p>
-                    <p>Merbeekstraat 1, 3360 Bierbeek, België</p>
-                </div>
-            </div>
+                    <?php
+                    $orderline = Orderline::getOrderlinesByOrderId($order['id']);
+                    foreach ($orderline as $line):
+                        $product = new Product();
+                        $product = $product->getProductById($line['product_id']);
 
-            <div class="bestelling">
-                <h2>Bestelling van 19/01/2024</h2>
-                <div class="divider_adress"></div>
-                <div class="images_flex">
-                    <img src="../images/product_images/67277a2ad8a95__DSC1549.jpg" alt="">
-                    <img src="../images/product_images/67277a2ad8a95__DSC1549.jpg" alt="">
-                    <img src="../images/product_images/67277a2ad8a95__DSC1549.jpg" alt="">
-                    <img src="../images/product_images/67277a2ad8a95__DSC1549.jpg" alt="">
-                    <img src="../images/product_images/67277a2ad8a95__DSC1549.jpg" alt="">
-                    <img src="../images/product_images/67277a2ad8a95__DSC1549.jpg" alt="">
-                </div>
-                <div class="flex_bestelling">
-                    <p>Status:</p>
-                    <p style="color: green;">GELEVERD</p>
-                </div>
-                <div class="flex_bestelling">
-                    <p>Bestelnummer:</p>
-                    <p>37940</p>
-                </div>
-                <div class="flex_bestelling">
-                    <p>Bedrag:</p>
-                    <p>€278</p>
-                </div>
-                <div class="flex_bestelling">
-                    <p>Verzendadres:</p>
-                    <p>Merbeekstraat 1, 3360 Bierbeek, België</p>
-                </div>
-            </div>
+                        if (!$product) {
+                            echo "Product niet gevonden.";
+                            continue;
+                        }
 
-            <div class="bestelling">
-                <h2>Bestelling van 19/01/2024</h2>
-                <div class="divider_adress"></div>
-                <div class="images_flex">
-                    <img src="../images/product_images/67277a2ad8a95__DSC1549.jpg" alt="">
-                    <img src="../images/product_images/67277a2ad8a95__DSC1549.jpg" alt="">
-                    <img src="../images/product_images/67277a2ad8a95__DSC1549.jpg" alt="">
-                    <img src="../images/product_images/67277a2ad8a95__DSC1549.jpg" alt="">
-                    <img src="../images/product_images/67277a2ad8a95__DSC1549.jpg" alt="">
-                    <img src="../images/product_images/67277a2ad8a95__DSC1549.jpg" alt="">
+                        $thumb = new Images();
+                        $thumbnail = $thumb->getThumbnailByProductId($product->getId());
+                    ?>
+                        <img src="../images/product_images/<?php echo htmlspecialchars($thumbnail); ?>" alt="">
+                    <?php endforeach; ?>
                 </div>
                 <div class="flex_bestelling">
                     <p>Status:</p>
@@ -198,17 +156,19 @@ $activeLocation = Deliverylocation::getActive($userid);
                 </div>
                 <div class="flex_bestelling">
                     <p>Bestelnummer:</p>
-                    <p>37940</p>
+                    <p><?php echo $order['id']?></p>
                 </div>
                 <div class="flex_bestelling">
                     <p>Bedrag:</p>
-                    <p>€278</p>
+                    <p>€<?php echo $order['full_price']?></p>
                 </div>
                 <div class="flex_bestelling">
                     <p>Verzendadres:</p>
-                    <p>Merbeekstraat 1, 3360 Bierbeek, België</p>
+                    <p>
+                    <?php echo $delivery['street_name']." ".$delivery['house_number'].", ".$delivery['postal_code']." ".$delivery['city'].", ".$delivery['country']?></p> 
                 </div>
             </div>
+            <?php endforeach?>
         </section>
 
         <div class="background hidden" id="background">

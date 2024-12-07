@@ -165,6 +165,12 @@ class User{
         }
     }
 
-
+    public function updateBalance($user_id, $new_balance) {
+        $conn = Db::connect();
+        $statement = $conn->prepare('UPDATE users SET currency = :new_balance WHERE id = :user_id');
+        $statement->bindParam(':new_balance', $new_balance);
+        $statement->bindParam(':user_id', $user_id);
+        $statement->execute();
+    }
 }
 ?>

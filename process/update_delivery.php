@@ -9,21 +9,19 @@ if ($_SESSION['loggedin'] !== true) {
 
 $jsonData = file_get_contents("php://input");
 $data = json_decode($jsonData, true);
-$totalPrice = $data['total_price'] ?? null;
 
-$delivery = $data['delivery'];
-if ($delivery ="standard") {
-    $deliveryId = 0;
-}elseif ($delivery ="express") {
-    $deliveryId = 1;
+$data['delivery_id'] = $data['delivery_id'] ?? null;
+
+if ($data['delivery_id'] === null) {
+    echo json_encode(['success' => false, 'message' => 'Geen leveringsoptie geselecteerd']);
+    exit;
 }
-$_SESSION['delivery'] = $deliveryId;
-$_SESSION['total_price'] = $totalPrice;
 
-$result = ['status' => true,
+$delivery = $data['delivery_id'];
+
+$result = ['success' => true,
 'message' => 'Delivery set',
 'value' => $delivery,];
 
 echo json_encode($result);
-
 ?>

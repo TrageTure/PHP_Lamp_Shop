@@ -59,22 +59,34 @@ class Orderline {
 
     public function save() {
         try {
-            $conn = Db::getConnection();
-            $statement = $conn->prepare("INSERT INTO orderlines (order_id, product_id, amount, price_per_unit) VALUES (:order_id, :product_id, :amount, :price_per_unit)");
-            $order_id = $this->getOrderId();
-            $product_id = $this->getProductId();
-            $amount = $this->getAmount();
-            $price_per_unit = $this->getPricePerUnit();
-            $statement->bindParam(":order_id", $order_id);
-            $statement->bindParam(":product_id", $product_id);
-            $statement->bindParam(":amount", $amount);
-            $statement->bindParam(":price_per_unit", $price_per_unit);
+            $conn = Db::connect();
+            $statement = $conn->prepare("
+                INSERT INTO order_lines (order_id, product_id, amount, price_per_unit) 
+                VALUES (:order_id, :product_id, :amount, :price_per_unit)
+            ");
+    
+            $statement->bindValue(':order_id', $this->order_id, PDO::PARAM_INT);
+            $statement->bindValue(':product_id', $this->product_id, PDO::PARAM_INT);
+            $statement->bindValue(':amount', $this->amount, PDO::PARAM_INT);
+            $statement->bindValue(':price_per_unit', $this->price_per_unit, PDO::PARAM_STR);
+    
             $statement->execute();
-        } catch (Throwable $t) {
-            return $t->getMessage();
+        } catch (PDOException $e) {
+            throw new Exception("Fout bij het opslaan van de orderregel: " . $e->getMessage());
         }
     }
     
-    
+    //alles van orderline door de orderid ophalen
+    public static function getOrderlinesByOrderId($order_id) {
+        try {
+            $conn = Db::connect();
+            $statement = $conn->prepare("SELECT * FROM order_lines WHERE order_id = :order_id");
+            $statement->bindValue(':order_id', $order_id, PDO::PARAM_INT);
+            $statement->execute();
+            return $statement->fetchAll(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            throw new Exception("Fout bij het ophalen van de orderregels: " . $e->getMessage());
+        }
+    }
 }
 ?>

@@ -6,8 +6,6 @@ class Images {
     private $product_id;
     private $url;
 
-    // Ophalen van alle afbeeldingen voor een bepaald product
-
     public function getImagesByProductId($product_id) {
         $conn = Db::connect();
         $statement = $conn->prepare("SELECT url FROM product_images WHERE product_id = :product_id ORDER BY id ASC");
