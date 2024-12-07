@@ -319,6 +319,7 @@ label[for="rood"]::before {
     display: flex;
     flex-direction: column;
     width: 95%;
+    gap: 1em;
     padding: 1em;
     border-radius: 15px;
     background-color: white;
@@ -366,9 +367,16 @@ label[for="rood"]::before {
 .stars .star{
     width: 17.5px;
     height: 17.5px;
-    background-image: url(../images/star.svg);
     background-size: cover;
     background-position: center;
+}
+
+.filled{
+    background-image: url(../images/star.svg);
+}
+
+.empty{
+    background-image: url(../images/star_empty.svg);
 }
 
 .flex_name_stars{
@@ -384,4 +392,160 @@ label[for="rood"]::before {
     padding: 0;
     background-color: none;
     height: 90px;
+}
+
+.reviews_flex_title{
+    display: flex;
+    justify-content: space-between;
+}
+
+#review_btn{
+    width: fit-content;
+    height: fit-content;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1em;
+    padding:0em 0.5em;
+    font-weight: 500;
+    border: #e67a14 3px solid;
+    border-radius: 15px;
+    color: #415f94;
+    cursor: pointer;
+    background-color: white;
+    font-size: 18pt;
+    transition: all 200ms ease-out;
+}
+
+.reviews_flex_title p:hover{
+    scale: 1.1;
+}
+
+/*! review form */
+.review_form_section {
+    background-color: white;
+    padding: 2em;
+    border-radius: 15px;
+    width: 100%;
+    max-width: 600px;
+    margin: 2em auto;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.review_form_section h2 {
+    font-size: 24pt;
+    color: #415f94;
+    margin-bottom: 1em;
+}
+
+.form_group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1em;
+}
+
+.form_group label {
+    font-weight: 500;
+    color: #50504f;
+    margin-bottom: 0.5em;
+}
+
+.form_group input,
+.form_group textarea {
+    padding: 0.5em;
+    border: #415f94 3px solid;
+    border-radius: 10px;
+}
+
+.rating {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+    gap: 0.5em;
+}
+
+.rating input {
+    display: none;
+}
+
+.rating label {
+    width: 17.5px;
+    height: 17.5px;
+    background-image: url(../images/star_empty.svg);
+    background-size: contain;
+    background-repeat: no-repeat;
+    cursor: pointer;
+    border: none;
+}
+
+.rating input:checked ~ label,
+.rating label:hover,
+.rating label:hover ~ label {
+    background-image: url(../images/star.svg);
+}
+
+#submit {
+    padding: 0.5em 1em;
+    background-color: #e67a14;
+    border: #e67a14 3px solid;
+    border-radius: 10px;
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 16pt;
+    width: 100%;
+}
+
+.submit:hover {
+    scale: 1.05;
+}
+
+#close{
+    width: 50px;
+    height: 50px;
+    background-image: url(../images/close.svg);
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    cursor: pointer;
+}
+
+.review_form_flex{
+    display: flex;
+    justify-content: space-between;
+    align-items: top;
+}
+
+#background{
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    display: none;
+}
+
+/*! load more */
+#loadMoreReviews{
+    width: fit-content;
+    height: fit-content;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1em;
+    padding:0em 0.5em;
+    font-weight: 500;
+    border: #e67a14 3px solid;
+    border-radius: 15px;
+    color: #415f94;
+    cursor: pointer;
+    background-color: white;
+    font-size: 18pt;
+    transition: all 200ms ease-out;
+    align-self: center;
 }

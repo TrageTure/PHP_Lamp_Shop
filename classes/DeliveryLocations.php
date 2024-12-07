@@ -1,7 +1,7 @@
 <?php 
-    include_once('Db.php');
+include_once('Db.php');
 
-    class Deliverylocation{
+class Deliverylocation{
         private $id;
         private $user_id;
         private $street;

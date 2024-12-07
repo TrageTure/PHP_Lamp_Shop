@@ -172,5 +172,15 @@ class User{
         $statement->bindParam(':user_id', $user_id);
         $statement->execute();
     }
+
+    //functie om alle gebruikers op te halen door middel van een user_id
+    public function getAllFromId($user_id){
+        $conn = Db::connect();
+        $statement = $conn->prepare('SELECT * FROM users WHERE id = :user_id');
+        $statement->bindParam(':user_id', $user_id);
+        $statement->execute();
+        $user = $statement->fetch(PDO::FETCH_ASSOC); 
+        return $user;
+    }
 }
 ?>

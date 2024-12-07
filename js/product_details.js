@@ -110,3 +110,139 @@ addToCartButton.addEventListener('click', (e) => {
         });
     }
 });
+
+const review_background = document.getElementById('background');
+const review_button = document.getElementById('review_btn');
+const review_form = document.getElementById('reviewForm');
+
+review_button.addEventListener('click', (e) => {
+    review_background.style.display = 'block';
+});
+
+const close_review = document.getElementById('close');
+
+close_review.addEventListener('click', (e) => {
+    review_background.style.display = 'none';
+});
+
+const error_rev = document.querySelector('.error');
+
+review_form.addEventListener('submit', (e) => {
+    e.preventDefault();
+
+    const formData = new FormData(review_form);
+
+    fetch('../process/add_review.php', {
+        method: 'POST',
+        body: formData
+    })
+        .then(response => response.text())
+        .then(result => {
+            console.log("Server response:", result);
+            try {
+                const data = JSON.parse(result);
+                if (data.success) {
+                    review_background.style.display = 'none';
+
+                    const reviewList = document.getElementById('reviews_grid');
+
+                    // Maak een nieuw review-element
+                    const newReview = document.createElement('section');
+                    newReview.classList.add('review_container');
+                    newReview.innerHTML = `
+                        <div class="review">
+                            <div class="flex_review">
+                                <img src="../images/0bd73bfec9d3f645b06bea1a433fc642.gif" alt="profile_pic_review">
+                                <div id="right">
+                                    <div class="flex_name_stars">
+                                        <h3>${data.user_name || 'Anonieme gebruiker'}</h3>
+                                        <div class="stars">
+                                            ${Array.from({ length: 5 }, (_, i) => 
+                                                `<div class="star ${i < data.rating ? 'filled' : 'empty'}"></div>`
+                                            ).join('')}
+                                        </div>
+                                    </div>
+                                    <p>${data.review || ''}</p>
+                                </div>
+                            </div>
+                        </div>`;
+                    // Voeg de nieuwe review toe aan de reviews-grid
+                    reviewList.prepend(newReview);
+
+                    // Reset het formulier
+                    review_form.reset();
+                } else {
+                    error_rev.innerHTML = data.message || 'Error adding review';
+                    error_rev.style.display = 'block';
+                }
+            } catch (e) {
+                console.error("JSON parse error:", e);
+                error_rev.innerHTML = 'Invalid server response';
+                error_rev.style.display = 'block';
+            }
+        })
+        .catch(error => {
+            console.error('Error adding review:', error);
+        });
+});
+
+document.getElementById('loadMoreReviews').addEventListener('click', function() {
+    const button = this;
+    const productId = button.getAttribute('data-product_id');
+    console.log(productId);
+    const offset = parseInt(button.getAttribute('data-offset'));
+    const limit = parseInt(button.getAttribute('data-limit'));
+
+    fetch('../process/fetch_reviews.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            product_id: productId,
+            limit: limit,
+            offset: offset,
+        }),
+    })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                const reviewsGrid = document.getElementById('reviews_grid');
+                data.reviews.forEach(review => {
+                    const reviewElement = document.createElement('section');
+                    reviewElement.classList.add('review_container');
+                    reviewElement.innerHTML = `
+                        <div class="review">
+                            <div class="flex_review">
+                                <img src="../images/0bd73bfec9d3f645b06bea1a433fc642.gif" alt="profile_pic_review">
+                                <div id="right">
+                                    <div class="flex_name_stars">
+                                        <h3>${review.first_name} ${review.last_name}</h3>
+                                        <div class="stars">
+                                            ${Array.from({ length: 5 }, (_, i) => 
+                                                `<div class="star ${i < review.stars_amount ? 'filled' : ''}"></div>`
+                                            ).join('')}
+                                        </div>
+                                    </div>
+                                    <p>${review.review}</p>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    reviewsGrid.appendChild(reviewElement);
+                });
+
+                // Update the offset
+                button.setAttribute('data-offset', offset + limit);
+
+                // Disable the button if there are no more reviews to load
+                if (data.reviews.length < limit) {
+                    button.disabled = true;
+                    button.textContent = 'Geen meer reviews';
+                }
+            } else {
+                console.error(data.message);
+            }
+        })
+        .catch(error => console.error('Error:', error));
+});

@@ -6,8 +6,8 @@ if ($_SESSION['loggedin'] !== true) {
 include_once('../classes/Product.php');
 include_once('../classes/Pictures.php');
 include_once('../classes/ProductOptions.php');
-
-
+include_once('../classes/Reviews.php');
+include_once('../classes/User.php');
 
 $product = new Product();
 $product->getProductById($_GET['id']);
@@ -99,90 +99,62 @@ $uniqueSizes = $options->getUniqueSizesByProductId($_GET['id']);
         </div>
     </main>
     <section class="reviews">
-        <h2>Reviews</h2>
-        <div class="reviews_grid">
-            <section class="review_container">
-                <div class="review">
-                    <div class="flex_review">
-                        <img src="../images/0bd73bfec9d3f645b06bea1a433fc642.gif" alt="profile_pic_review">
-                        <div id="right">
-                            <div class="flex_name_stars">
-                                <h3>John Doe</h3>
-                                <div class="stars">
-                                    <div class="star"></div>
-                                    <div class="star"></div>
-                                    <div class="star"></div>
-                                    <div class="star"></div>
-                                    <div class="star"></div>
+        <div class="reviews_flex_title">
+            <h2>Reviews</h2>
+            <p id="review_btn">Schrijf review</p>
+        </div>
+        <div class="reviews_grid" id="reviews_grid">
+            <?php 
+            $initialReviews = Review::getReviewsByProductId($_GET['id'], 6, 0); // Laad de eerste 6 reviews
+            foreach ($initialReviews as $review): 
+            ?>
+                <section class="review_container">
+                    <div class="review">
+                        <div class="flex_review">
+                            <img src="../images/0bd73bfec9d3f645b06bea1a433fc642.gif" alt="profile_pic_review">
+                            <div id="right">
+                                <div class="flex_name_stars">
+                                    <h3><?php echo htmlspecialchars($review['first_name'] . " " . $review['last_name']); ?></h3>
+                                    <div class="stars">
+                                        <?php for ($i = 1; $i <= 5; $i++): ?>
+                                            <div class="star <?php echo $i <= $review['stars_amount'] ? 'filled' : 'empty'; ?>"></div>
+                                        <?php endfor; ?>
+                                    </div>
                                 </div>
+                                <p><?php echo htmlspecialchars($review['review']); ?></p>
                             </div>
-                            <p>Great product, I love it!</p>
                         </div>
                     </div>
-                </div>
-            </section>
+                </section>
+            <?php endforeach; ?>
+        </div>
+        <p id="loadMoreReviews" data-offset="6" data-limit="6" data-product_id="<?php echo htmlspecialchars($_GET['id']); ?>">Laad meer reviews</p>
 
-            <section class="review_container">
-                <div class="review">
-                    <div class="flex_review">
-                        <img src="../images/0bd73bfec9d3f645b06bea1a433fc642.gif" alt="profile_pic_review">
-                        <div id="right">
-                            <div class="flex_name_stars">
-                                <h3>John Doe</h3>
-                                <div class="stars">
-                                    <div class="star"></div>
-                                    <div class="star"></div>
-                                    <div class="star"></div>
-                                    <div class="star"></div>
-                                    <div class="star"></div>
-                                </div>
-                            </div>
-                            <p>Great product, I love it!</p>
+        <div id="background">
+            <section class="review_form_section">
+                <div class="review_form_flex">
+                    <h2>Schrijf een review</h2>
+                    <div id="close"></div>
+                </div>
+                <form id="reviewForm" method="POST" action="../process/add_review.php">
+                    <div class="form_group">
+                        <h3 for="rating">Beoordeling:</h3>
+                        <div class="rating">
+                            <input type="radio" id="star5" name="rating" value="5" required><label for="star5" title="5 sterren"></label>
+                            <input type="radio" id="star4" name="rating" value="4"><label for="star4" title="4 sterren" class="ster"></label>
+                            <input type="radio" id="star3" name="rating" value="3"><label for="star3" title="3 sterren" class="ster"></label>
+                            <input type="radio" id="star2" name="rating" value="2"><label for="star2" title="2 sterren" class="ster"></label>
+                            <input type="radio" id="star1" name="rating" value="1"><label for="star1" title="1 ster" class="ster"></label>
                         </div>
                     </div>
-                </div>
-            </section>
-
-            <section class="review_container">
-                <div class="review">
-                    <div class="flex_review">
-                        <img src="../images/0bd73bfec9d3f645b06bea1a433fc642.gif" alt="profile_pic_review">
-                        <div id="right">
-                            <div class="flex_name_stars">
-                                <h3>John Doe</h3>
-                                <div class="stars">
-                                    <div class="star"></div>
-                                    <div class="star"></div>
-                                    <div class="star"></div>
-                                    <div class="star"></div>
-                                    <div class="star"></div>
-                                </div>
-                            </div>
-                            <p>Great product, I love it!</p>
-                        </div>
+                    <div class="form_group">
+                        <h3 for="review">Review:</h3>
+                        <textarea id="review" name="review" rows="4" required></textarea>
+                        <input type="hidden" name="product_id" value="<?php echo htmlspecialchars($_GET['id']); ?>">
                     </div>
-                </div>
-            </section>
-
-            <section class="review_container">
-                <div class="review">
-                    <div class="flex_review">
-                        <img src="../images/0bd73bfec9d3f645b06bea1a433fc642.gif" alt="profile_pic_review">
-                        <div id="right">
-                            <div class="flex_name_stars">
-                                <h3>John Doe</h3>
-                                <div class="stars">
-                                    <div class="star"></div>
-                                    <div class="star"></div>
-                                    <div class="star"></div>
-                                    <div class="star"></div>
-                                    <div class="star"></div>
-                                </div>
-                            </div>
-                            <p>Great product, I love it!</p>
-                        </div>
-                    </div>
-                </div>
+                    <button type="submit" id="submit">Verzenden</button>
+                    <p></p class="error_rev">
+                </form>
             </section>
         </div>
 
