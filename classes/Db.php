@@ -5,12 +5,12 @@ class Db {
     public static function connect() { // this method is used to connect to the database
         if (self::$conn === null) { // if the connection is not yet established
             // Update the connection details for Azure MySQL
-            $host = 'php-lamp-shop-server.mysql.database.azure.com';
-            $dbname = 'php-lamp-shop-database'; // Correcte variabele naam
-            $username = 'tgpwrugenq'; // Vervang door jouw gebruikersnaam
-            $password = 'nH$DrdFPn85MIbbo'; // Vervang door jouw wachtwoord
-            $port = '3306'; // Standaard MySQL-poort
-            $sslCert = '../DigiCertGlobalRootCA.crt.pem';
+            $host = getenv('DB_HOST');
+            $dbname = getenv('DB_DATABASE');
+            $username = getenv('DB_USERNAME');
+            $password = getenv('DB_PASSWORD');
+            $port = getenv('DB_PORT');
+            $sslCert = getenv('SSL_CERT');
 
             try {
                 self::$conn = new PDO(
