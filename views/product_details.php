@@ -116,7 +116,7 @@ $uniqueSizes = $options->getUniqueSizesByProductId($_GET['id']);
                 <section class="review_container">
                     <div class="review">
                         <div class="flex_review">
-                            <img src="../images/0bd73bfec9d3f645b06bea1a433fc642.gif" alt="profile_pic_review">
+                            <img src="../images/pf_pics<?php $review['profile_pic']  ?>" alt="profile_pic_review">
                             <div id="right">
                                 <div class="flex_name_stars">
                                     <h3><?php echo htmlspecialchars($review['first_name'] . " " . $review['last_name']); ?></h3>
