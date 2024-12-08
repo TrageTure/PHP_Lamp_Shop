@@ -20,6 +20,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $product_id = $_POST['product_id'];
 
         $name = $result['first_name']." ".$result['last_name'];
+        $pf_pic = $result['profile_pic'];
 
         if (!$product_id || !$rating || !$review) {
             throw new Exception("Alle velden zijn verplicht.");
@@ -38,7 +39,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             'message' => 'Review succesvol toegevoegd.',
             'user_name' => $name,
             'rating' => $rating,
-            'review' => $review
+            'review' => $review,
+            'profile_pic' => $pf_pic
         ]);
         exit;
     } catch (Exception $e) {
