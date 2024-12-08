@@ -126,7 +126,7 @@ class Review{
     public static function getReviewsByProductId($product_id, $limit, $offset) {
         $conn = Db::connect();
         $statement = $conn->prepare("
-            SELECT r.*, u.first_name, u.last_name
+            SELECT r.*, u.first_name, u.last_name, u.profile_pic
             FROM reviews r
             JOIN users u ON r.user_id = u.id
             WHERE r.product_id = :product_id
