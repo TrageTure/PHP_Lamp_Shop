@@ -3,10 +3,11 @@ session_start();
 if ($_SESSION['loggedin'] !== true) {
     header('location: /views/login.php');
 }
-include_once('../classes/Db.php');
-include_once('../classes/Product.php');
-include_once('../classes/Pictures.php');
-include_once('../classes/User.php');
+define('BASE_PATH', realpath($_SERVER['DOCUMENT_ROOT']));
+include_once(BASE_PATH . '/classes/Db.php');
+include_once(BASE_PATH . '/classes/Product.php');
+include_once(BASE_PATH . '/classes/Pictures.php');
+include_once(BASE_PATH . '/classes/User.php');
 
 $user = new User();
 $result = $user->getAllFromEmail($_SESSION['email']);
