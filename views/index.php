@@ -9,6 +9,7 @@ include_once(BASE_PATH . '/classes/Product.php');
 include_once(BASE_PATH . '/classes/Pictures.php');
 include_once(BASE_PATH . '/classes/User.php');
 
+
 $user = new User();
 $result = $user->getAllFromEmail($_SESSION['email']);
 $userid = $result['id'];
