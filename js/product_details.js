@@ -152,7 +152,7 @@ review_form.addEventListener('submit', (e) => {
                     newReview.innerHTML = `
                         <div class="review">
                             <div class="flex_review">
-                                <img src="../images/pf_pics${data.profile_pic}" alt="profile_pic_review">
+                                <img src="../images/pf_pics/${data.profile_pic}" alt="profile_pic_review">
                                 <div id="right">
                                     <div class="flex_name_stars">
                                         <h3>${data.user_name || 'Anonieme gebruiker'}</h3>
