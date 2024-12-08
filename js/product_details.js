@@ -214,7 +214,7 @@ document.getElementById('loadMoreReviews').addEventListener('click', function() 
                     reviewElement.innerHTML = `
                         <div class="review">
                             <div class="flex_review">
-                                <img src="${review.profile_pic}" alt="profile_pic_review">
+                                <img src="../images/pf_pics/${review.profile_pic}" alt="profile_pic_review">
                                 <div id="right">
                                     <div class="flex_name_stars">
                                         <h3>${review.first_name} ${review.last_name}</h3>
