@@ -20,10 +20,12 @@ if ($result['is_admin'] === 0) {
 // Haal product en opties op
 $product = new Product();
 $options = new Options();
+$pictures = new Images();
 
 if (isset($_GET['id'])) {
     $product->getProductById($_GET['id']);
     $productOptions = $options->getOptionsByProductId($_GET['id']);
+    $productImages = $pictures->getAllFromImagesByProductId($_GET['id']);
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -43,8 +45,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                    ->update();
         }
 
+        // Bewerk afbeeldingen
+        foreach ($_FILES['images']['name'] as $imageId => $imageName) {
+            if (!empty($imageName)) {
+                $fileName = uniqid() . "_" . basename($imageName);
+                move_uploaded_file($_FILES['images']['tmp_name'][$imageId], "../images/product_images/$fileName");
+                $pictures->updateImage($imageId, $_GET['id'], $fileName);
+            }
+        }
+
         echo "Product succesvol bijgewerkt!";
-        header('Location: admin_products.php');
     } catch (Exception $e) {
         $error = $e->getMessage();
     }
@@ -65,7 +75,6 @@ $currentCategory = $product->getCategoryId();
 </head>
 <body>
     <?php include_once('../components/nav.php')?>
-    <div class="filler"></div>
     <main>
         <section class="admin_section">
             <h1>Product bewerken</h1>
@@ -108,6 +117,25 @@ $currentCategory = $product->getCategoryId();
                                     <td>
                                         <input type="number" step="0.01" name="options[<?= $option['id'] ?>][price]" value="<?= htmlspecialchars($option['price']) ?>" required>
                                     </td>
+                                </tr>
+                            <?php endforeach; ?>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="form_group">
+                    <h3>Afbeeldingen Bewerken</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Huidige Afbeelding</th>
+                                <th>Nieuwe Afbeelding</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php foreach ($productImages as $image): ?>
+                                <tr>
+                                    <td><img src="../images/product_images/<?= htmlspecialchars($image['url']) ?>" alt="Product Image" width="100"></td>
+                                    <td><input type="file" name="images[<?= $image['id'] ?>]"></td>
                                 </tr>
                             <?php endforeach; ?>
                         </tbody>
