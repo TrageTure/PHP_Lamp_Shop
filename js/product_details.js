@@ -22,7 +22,7 @@ function updateStock() {
             .then(response => response.json())
             .then(data => {
                 stockDisplay.textContent = `${data.stock_amount}`;
-                priceDisplay.textContent = `$${data.price}`;
+                priceDisplay.textContent = `€${data.price}`;
                 maxStock = data.stock_amount; 
 
                 add_amount = 0;
