@@ -50,38 +50,47 @@ $deliveryLocations = DeliveryLocation::getNotActive($user_id);
             <?php if (!empty($error)): ?>
                 <p class="error"><?php echo $error; ?></p>
             <?php endif; ?>
-
-            <div>
-                <h2>Actief Adres</h2>
-                <div class="adress_grid_order">
-                    <input type="radio" name="delivery_location" value="<?php echo $activeLocation['id']; ?>" checked>
-                    <p class="adress_name"><?php echo $activeLocation['adress_naam']; ?></p>
-                    <p><?php echo "{$activeLocation['street_name']} {$activeLocation['house_number']}"; ?></p>
-                    <p><?php echo "{$activeLocation['postal_code']} {$activeLocation['city']}"; ?></p>
-                    <p><?php echo $activeLocation['country']; ?></p>
+            
+            <?php if (!empty($activeLocation) || !empty($deliveryLocations)):?>
+                <?php if (!empty($activeLocation)): ?>
+                <div>
+                    <h2>Actief Adres</h2>
+                    <div class="adress_grid_order">
+                        <input type="radio" name="delivery_location" value="<?php echo $activeLocation['id']; ?>" checked>
+                        <p class="adress_name"><?php echo $activeLocation['adress_naam']; ?></p>
+                        <p><?php echo "{$activeLocation['street_name']} {$activeLocation['house_number']}"; ?></p>
+                        <p><?php echo "{$activeLocation['postal_code']} {$activeLocation['city']}"; ?></p>
+                        <p><?php echo $activeLocation['country']; ?></p>
+                    </div>
                 </div>
-            </div>
-
-            <div>
-                <h2>Andere adressen</h2>
-                <div class="delivery_location">
-                    <?php foreach ($deliveryLocations as $location): ?>
-                        <div class="location">
-                            <label>
-                                <div class="adress_grid_order">
-                                    <input type="radio" name="delivery_location" value="<?php echo $location['id']; ?>">
-                                    <p class="adress_name"><?php echo $location['adress_naam']; ?></p>
-                                    <p><?php echo "{$location['street_name']} {$location['house_number']}"; ?></p>
-                                    <p><?php echo "{$location['postal_code']} {$location['city']}"; ?></p>
-                                    <p><?php echo $location['country']; ?></p>
+                <?php endif?>
+                
+                <?php if (!empty($deliveryLocations)): ?>
+                    <div>
+                        <h2>Alle adressen</h2>
+                        <div class="delivery_location">
+                            <?php foreach ($deliveryLocations as $location): ?>
+                                <div class="location">
+                                    <label>
+                                        <div class="adress_grid_order">
+                                            <input type="radio" name="delivery_location" value="<?php echo $location['id']; ?>">
+                                            <p class="adress_name"><?php echo $location['adress_naam']; ?></p>
+                                            <p><?php echo "{$location['street_name']} {$location['house_number']}"; ?></p>
+                                            <p><?php echo "{$location['postal_code']} {$location['city']}"; ?></p>
+                                            <p><?php echo $location['country']; ?></p>
+                                        </div>
+                                    </label>
                                 </div>
-                            </label>
+                            <?php endforeach; ?>
                         </div>
-                    <?php endforeach; ?>
-                </div>
-            </div>
+                    </div>
+                <?php endif?>
 
             <button type="submit" id="btn_adress">Volgende stap</button>
+            <?php else:?>
+                <p>Je hebt nog geen adressen toegevoegd. <span><a href="../views/account.php">Ga naar je account om een adres toe te voegen.</a></span></p>
+            <?php endif;?>
+
         </form>
     </main>
 </body>
