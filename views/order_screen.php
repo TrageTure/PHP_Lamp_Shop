@@ -62,7 +62,7 @@ foreach ($_SESSION['cart'] as $item) {
                     <img class="order_shopping_cart_item_img" src='../images/product_images/<?php echo htmlspecialchars($thumbnail); ?>'>
                     <div class="order_shopping_cart_info_grid">
                         <div class="order_shopping_cart_item_name_color_size">
-                            <h1 class="order_shopping_cart_item_name"><?php echo htmlspecialchars($item['name']); ?></h1>
+                            <h1 class="order_shopping_cart_item_name" id="order_shopping_cart_item_name"><?php echo htmlspecialchars($item['name']); ?></h1>
                             <p><?php echo $color['color_name'].", ".$size['size']?></p>
                         </div>
                         <div class="order_delete" data-index="<?php echo $index; ?>"></div> 

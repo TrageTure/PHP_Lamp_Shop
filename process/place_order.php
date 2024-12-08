@@ -4,6 +4,7 @@ session_start();
 include_once('../classes/Order.php');
 include_once('../classes/Orderline.php');
 include_once('../classes/User.php');
+include_once('../classes/ProductOptions.php');
 
 // Controleer of de gebruiker is ingelogd
 if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
@@ -51,6 +52,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         foreach ($cart as $item) {
             $orderline = new Orderline(null, $order_id, $item['product_id'], $item['amount'], $item['price']);
             $orderline->save();
+        }
+
+        $productOptions = new Options();
+        foreach ($cart as $item) {
+            $product_id = $item['product_id'];
+            $color_id = $item['color_id'];
+            $size_id = $item['size_id'];
+            $amount = $item['amount'];
+
+
+            $stock = $productOptions->getStockAmountByColorAndSize($product_id, $color_id, $size_id);
+            $new_stock = $stock['stock_amount'] - $amount;
+
+            if ($new_stock < 0) {
+                throw new Exception("Niet genoeg voorraad voor product ID: $product_id, kleur ID: $color_id, maat ID: $size_id.");
+            }
+
+            $productOptions->updateStockAmount($product_id, $color_id, $size_id, $new_stock);
         }
 
         // Werk het saldo van de gebruiker bij
