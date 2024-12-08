@@ -6,7 +6,7 @@
     </handlers>
     <defaultDocument>
       <files>
-        <add value="/views/index.php" />
+        <add value="/index.php" />
       </files>
     </defaultDocument>
   </system.webServer>
