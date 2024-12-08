@@ -203,5 +203,16 @@ class Options {
         $statement->bindValue(":id", $this->id, PDO::PARAM_INT);
         $statement->execute();
     }
+    
+    //update stock amount
+    public function updateStockAmount($productId, $colorId, $sizeId, $stockAmount) {
+        $conn = Db::connect();
+        $statement = $conn->prepare("UPDATE product_options SET stock_amount = :stock_amount WHERE product_id = :product_id AND color_id = :color_id AND size_id = :size_id");
+        $statement->bindValue(":stock_amount", $stockAmount, PDO::PARAM_INT);
+        $statement->bindValue(":product_id", $productId, PDO::PARAM_INT);
+        $statement->bindValue(":color_id", $colorId, PDO::PARAM_INT);
+        $statement->bindValue(":size_id", $sizeId, PDO::PARAM_INT);
+        $statement->execute();
+    }
 }
 ?>

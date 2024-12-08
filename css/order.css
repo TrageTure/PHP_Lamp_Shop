@@ -1,111 +1,129 @@
-.main{
-    margin-top: 105px;
-    margin-bottom: 30px;
-    overflow: show;
+body {
+    background-color: #f5f5f5;
+    font-family: "Lato-bold", sans-serif;
+    margin: 0;
     display: flex;
-    justify-content: space-evenly;
-    gap: 2em;
-    width: 95%;
-    max-width: 95%;
+    flex-direction: column;
+    align-items: center;
+    padding: 0;
 }
 
-.orderlines{
-    width: 65%;
+.main {
+    margin-top: 105px;
+    margin-bottom: 30px;
+    display: flex;
+    justify-content: space-between;
+    gap: 1em;
+    width: 95%; /* 95% van de viewport breedte */
+    max-width: 95%; /* Maximale breedte van 1200px */
+    box-sizing: border-box; /* Inclusief padding/marges */
+}
+
+.orderlines {
+    flex: 1.75; /* 2/3 van de beschikbare ruimte */
     background-color: white;
     display: flex;
     flex-direction: column;
     align-items: center;
     height: fit-content;
+    padding: 2em;
+    border-radius: 15px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: auto; /* Breedte automatisch laten schalen */
+    flex-shrink: 1;
 }
 
-.artikelen_titel{
+.artikelen_titel {
     align-self: flex-start;
+    font-size: 24pt;
+    color: #415f94;
+    margin-bottom: 1em;
 }
 
-.right{
+.right {
+    flex: 1.25; /* 1/3 van de beschikbare ruimte */
     display: flex;
     flex-direction: column;
     padding: 0;
+    border-radius: 15px;
+    width: fit-content;
+    flex-shrink: 1;
 }
 
-.right_top{
+.right_top, .right_bottom {
     width: 100%;
+    max-width: 100%;
     background-color: white;
     display: flex;
     flex-direction: column;
-    /* justify-content: center; */
-    gap: 3em;
-}
-
-.right_bottom{
-    width: 100%;
-    background-color: white;
-    display: flex;
-    flex-direction: column;
-    gap: 3em;
+    gap: 2em;
+    padding: 2em;
+    border-radius: 15px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 2em;
+    box-sizing: border-box;
 }
 
 
-.order_shopping_cart_item_name{
+.order_shopping_cart_item_name {
+    font-size: 18pt;
+    color: #415f94;
     margin: 0;
-    font-size: 28pt;
     line-clamp: 1;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+    width: 200px; /* Specificeer de breedte voor de tekst */
 }
 
-.order_shopping_cart_item_name_color_size{
+.order_shopping_cart_item_name_color_size {
     justify-self: flex-start;
+    max-width: 100%;
 }
 
-.order_shopping_cart_item_name_color_size p{
+.order_shopping_cart_item_name_color_size p {
     color: #767676;
-    font-size: 18pt;
+    font-size: 12pt;
 }
 
-
-.order_shopping_cart_item_img{
-    width: 200px;
-    height: 200px;
-    background-image: url(../images/lamp_groen.webp);
+.order_shopping_cart_item_img {
+    width: 100px;
+    height: 100px;
     background-size: cover;
     border-radius: 15px;
-    justify-self: center;
-    align-self: center;
     object-fit: cover;
     flex-shrink: 0;
 }
 
-.order_shopping_cart_info_grid{
+.order_shopping_cart_info_grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 1fr 1fr;
     justify-items: center;
     align-items: center;
-    width: 75%;
+    width: 100%;
 }
 
-.order_shopping_cart_item_amount{
+.order_shopping_cart_item_amount {
     grid-column: 2/3;
     grid-row: 2/3;
     justify-self: flex-end;
     align-self: center;
-    font-size: 18pt;
+    font-size: 12pt;
 }
 
-.order_shopping_cart_item_price{
+.order_shopping_cart_item_price {
     grid-column: 1/2;
     grid-row: 2/3;
-    justify-self: first baseline;
-    font-size: 18pt;
+    justify-self: start;
+    font-size: 12pt;
     margin: 0;
 }
 
-.order_delete{
+.order_delete {
     background-image: url(../images/close.svg);
-    width: 55px;
-    height: 55px;
+    width: 35px;
+    height: 35px;
     justify-self: flex-end;
     background-size: cover;
     background-repeat: no-repeat;
@@ -114,51 +132,43 @@
 
 .order_item {
     display: flex;
-    width: 90%;
-    max-width: calc(100% - 2em); /* Houd rekening met de marges */
-    margin-left: 1em;
-    margin-right: 1em;
+    width: 100%;
+    margin: 1em 0;
     flex: 0 1 auto;
     padding: 0;
     justify-content: space-between;
     box-sizing: border-box; /* Zorg ervoor dat padding en marges worden meegerekend */
     align-self: center;
-    gap: 3em;
+    gap: 1em;
 }
 
-.order_divider2{
-    width: 90%;
+.order_divider2 {
+    width: 100%;
     height: 4px;
     background-color: #415f94;
     border-radius: 15px;
     align-self: center;
     flex-shrink: 0;
-    margin-top: 2em;
-    margin-bottom: 2em;
+    margin: 2em 0;
 }
 
-.delivery_options{
+.delivery_options {
     align-self: start;
 }
-.delivery_radio{
+
+.delivery_radio {
     display: flex;
     flex-direction: row;
     gap: 1em;
     justify-content: center;
 }
-.standard h3, .express h3{
+
+.standard h3, .express h3 {
     margin: 0;
     margin-bottom: 0.25em;
 }
 
-.standard{
-    outline: #e67a14 solid 3px;
-    border-radius: 10px;
-    padding: 0.25em;
-    text-align: center;
-    display: flex;
-}
-.express{
+.standard, .express {
     outline: #e67a14 solid 3px;
     border-radius: 10px;
     padding: 0.25em;
@@ -166,25 +176,13 @@
     display: flex;
 }
 
-.aantal_artikelen{
+.aantal_artikelen, .verzendkosten, .totaal {
     display: flex;
     gap: 1em;
     justify-content: space-between;
 }
 
-.verzendkosten{
-    display: flex;
-    gap: 1em;
-    justify-content: space-between;
-}
-
-.totaal{
-    display: flex;
-    gap: 1em;
-    justify-content: space-between;
-}
-
-.divider{
+.divider {
     width: 100%;
     height: 4px;
     background-color: #415f94;
@@ -192,36 +190,38 @@
     align-self: center;
     flex-shrink: 0;
 }
-.title_left{
+
+.title_left {
     margin: 0;
 }
 
-.order_btn_bestellen{
+.order_btn_bestellen {
     background-color: #e67a14;
     color: white;
-    padding: 0.25em 1em;
+    padding: 0.5em 1em;
     width: fit-content;
     border-radius: 15px;
     cursor: pointer;
     align-self: center;
     margin-top: 0;
     transition: all 200ms ease-out;
-    font-size: 28pt;
+    font-size: 18pt;
 }
 
-.order_btn_bestellen:hover{
+.order_btn_bestellen:hover {
     scale: 1.1;
 }
 
-.flex_delivery_grid{
+.flex_delivery_grid {
     display: flex;
     flex-direction: column;
 }
 
-.delivery_radio input[type="radio"]{
+.delivery_radio input[type="radio"] {
     display: none;
 }
-.delivery_radio label{
+
+.delivery_radio label {
     display: flex;
     gap: 0.5em;
     align-items: center;
@@ -229,8 +229,9 @@
     padding: 0.5em;
     border-radius: 10px;
     width: fit-content;
-    font-weight: 800;;
+    font-weight: 800;
 }
+
 .delivery_radio label::before {
     content: "";
     display: inline-block;
@@ -241,23 +242,17 @@
     cursor: pointer;
     margin-right: 8px;
 }
-.delivery_radio label[for="standard"]::before {
+
+.delivery_radio label[for="standard"]::before, .delivery_radio label[for="express"]::before {
     outline: #e67a14 solid 3px;
     border: white 3px solid;
 }
 
-.delivery_radio label[for="express"]::before {
-    outline: #e67a14 solid 3px;
-    border: white 3px solid;
-}
-#standard:checked + label::before {
-    background-color: #415f94;
-}
-#express:checked + label::before {
+#standard:checked + label::before, #express:checked + label::before {
     background-color: #415f94;
 }
 
-#add{
+#add {
     display: flex;
     justify-content: space-evenly;
     align-items: center;
@@ -267,29 +262,27 @@
     border: #e67a14 3px solid;
     border-radius: 100px;
 }
-.plus{
+
+.plus, .minus {
     width: 25px;
     height: 25px;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    cursor: pointer;
+}
+
+.plus {
     background-image: url(../images/plus-circle-f.svg);
-    background-size: contain;
-    background-position: center;
-    background-repeat: no-repeat;
-    cursor: pointer;
 }
-.minus{
-    width: 25px;
-    height: 25px;
+
+.minus {
     background-image: url(../images/minus-circle-f.svg);
-    background-size: contain;
-    background-position: center;
-    background-repeat: no-repeat;
-    cursor: pointer;
 }
-.deliver_amount{
+
+.deliver_amount {
     display: flex;
     flex-direction: column;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: 1fr;
     align-items: center;
     font-size: 12pt;
     gap: 2em;

@@ -70,12 +70,14 @@ class Product {
         }
     }
 
+    //alle prodfucten ophalen die in stock zijn
     public function getAllProducts() {
         $conn = Db::connect();
         $statement = $conn->prepare("
             SELECT p.*, MIN(po.price) AS min_price
             FROM products p
             LEFT JOIN product_options po ON p.id = po.product_id
+            WHERE po.stock_amount > 0
             GROUP BY p.id
         ");
         $statement->execute();
@@ -96,6 +98,7 @@ class Product {
             FROM products p
             LEFT JOIN product_options po ON p.id = po.product_id
             WHERE p.product_categories_id = :category_id
+            AND po.stock_amount > 0
             GROUP BY p.id
         ");
         $statement->bindValue(":category_id", $category_id);
@@ -202,10 +205,11 @@ class Product {
             LEFT JOIN product_options po ON p.id = po.product_id
             LEFT JOIN product_categories pc ON p.product_categories_id = pc.id
             LEFT JOIN colors c ON po.color_id = c.id
-            WHERE p.title LIKE :search
+            WHERE (p.title LIKE :search
             OR p.description LIKE :search
             OR pc.title LIKE :search
-            OR c.color_name LIKE :search
+            OR c.color_name LIKE :search)
+            AND po.stock_amount > 0
             GROUP BY p.id
         ");
         $statement->bindValue(":search", "%$search%");

@@ -236,7 +236,12 @@ nav{
 
 .shopping_cart_item_name{
     margin: 0;
-    font-size: 18pt;
+    font-size: 14pt;
+    width: 150px;
+    line-clamp: 1;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 
 .shopping_cart_item_name_color_size{
