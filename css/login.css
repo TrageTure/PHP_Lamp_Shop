@@ -5,6 +5,10 @@ body{
     font-weight: 500;
 }
 
+label{
+    color: #E8E3E3;
+}
+
 .login_form{
     display: flex;
     flex-direction: column;
@@ -15,7 +19,7 @@ body{
     width: 100vw;
     height: 100vh;
     position: absolute;
-    background-image: url(../images/Image_light_webshop.webp);
+    background-image: url(../images/background.png);
     filter: blur(0.25em);
     /* animation: blur 2s  ease-out 0.5s forwards 1; */
 }
@@ -31,7 +35,7 @@ body{
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
-    background-color: rgba(128, 142, 149, 0.5);  
+    background-color: rgba(216, 216, 216, 0.5);  
     color: #E8E3E3;
     padding: 4em 3.5em;
     border-radius: 15px;
@@ -82,7 +86,7 @@ a{
     height: 30px;
     border-radius: 15px;
     border: none;
-    background-color: #e67a14;
+    background-color: #415f94;
     color: #E8E3E3;
     cursor: pointer;
     transition: all 100ms ease-in-out;
