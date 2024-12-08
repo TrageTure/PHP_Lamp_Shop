@@ -44,15 +44,6 @@ class Product {
         return $this;
     }
 
-    public function getThumb() {
-        return $this->thumb;
-    }
-
-    public function setThumb($thumb) {
-        $this->thumb = $thumb;
-        return $this;
-    }
-
     public function getDescription() {
         return $this->description;
     }
@@ -201,5 +192,25 @@ class Product {
         $statement->bindValue(":id", $this->id, PDO::PARAM_INT);
         $statement->execute();
     }
+
+    //functie voor het ophalen van de producten op basis van de zoekterm er wordt gezocht op categorie naam kleur en product naam
+    public function searchProducts($search) {
+        $conn = Db::connect();
+        $statement = $conn->prepare("
+            SELECT p.*, MIN(po.price) AS min_price
+            FROM products p
+            LEFT JOIN product_options po ON p.id = po.product_id
+            LEFT JOIN product_categories pc ON p.product_categories_id = pc.id
+            LEFT JOIN colors c ON po.color_id = c.id
+            WHERE p.title LIKE :search
+            OR pc.title LIKE :search
+            OR c.color_name LIKE :search
+            GROUP BY p.id
+        ");
+        $statement->bindValue(":search", "%$search%");
+        $statement->execute();
+        return $statement->fetchAll(PDO::FETCH_ASSOC);
+    }
+
 }
 ?>

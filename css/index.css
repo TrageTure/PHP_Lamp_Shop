@@ -26,3 +26,47 @@ body{
 .filter a:hover{
     scale: 1.125;
 }
+
+#search{
+    padding: 0.25em 1.5em;
+    border: #e67a14 3px solid;
+    border-radius: 25px;
+    font-family: "Lato-regular", sans-serif;
+    font-weight: 700;
+    color: #415f94;
+    transition: all 200ms ease-out;
+    outline: none;
+    height: 19.85px;
+    width: 200px;
+}
+
+#search::placeholder {
+    color: #767676;
+    padding-left: 18px;
+    background-image: url(../images/search.svg);
+    background-repeat: no-repeat;
+    background-position: 0px 0px;
+    background-size: 16px 16px;
+}
+
+#search:focus{
+    border-color: #415f94;
+}
+
+#search:focus + .icon_search {
+    opacity: 0; /* Maak onzichtbaar */
+}
+
+.searchcontainer:hover {
+    scale: 1.05;
+}
+
+#search:not(:placeholder-shown) + .icon_search {
+    opacity: 0;
+}
+
+.searchcontainer{
+    align-self: last baseline;
+    position: relative;
+    transition: all 200ms ease-out;
+}

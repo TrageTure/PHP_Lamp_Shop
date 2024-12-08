@@ -44,6 +44,9 @@ $categories = $product->getAllCategories();
                 <?php echo htmlspecialchars($category['title']); ?>
             </a>
         <?php endforeach; ?>
+        <div class="searchcontainer">
+            <input type="text" name="search" id="search" placeholder="Zoeken">
+        </div>
     </section>
 
     <section class="products">
@@ -64,5 +67,6 @@ $categories = $product->getAllCategories();
             </article>
         <?php endforeach; ?>
     </section>
+    <script src="../js/index.js"></script>
 </body>
 </html>
