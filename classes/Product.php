@@ -203,6 +203,7 @@ class Product {
             LEFT JOIN product_categories pc ON p.product_categories_id = pc.id
             LEFT JOIN colors c ON po.color_id = c.id
             WHERE p.title LIKE :search
+            OR p.description LIKE :search
             OR pc.title LIKE :search
             OR c.color_name LIKE :search
             GROUP BY p.id

@@ -6,6 +6,15 @@ class Images {
     private $product_id;
     private $url;
 
+    public function getAllFromImagesByProductId($product_id) {
+        $conn = Db::connect();
+        $statement = $conn->prepare("SELECT * FROM product_images WHERE product_id = :product_id ORDER BY id ASC");
+        $statement->bindValue(":product_id", $product_id, PDO::PARAM_INT);
+        $statement->execute();
+        return $statement->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+
     public function getImagesByProductId($product_id) {
         $conn = Db::connect();
         $statement = $conn->prepare("SELECT url FROM product_images WHERE product_id = :product_id ORDER BY id ASC");
@@ -51,6 +60,16 @@ class Images {
             $statement->bindValue(":image_id", $image_id, PDO::PARAM_INT);
             $statement->execute();
         }
+    }
+
+    //functie voor updtaten van afbeelding
+    public function updateImage($image_id, $product_id, $imageName) {
+        $conn = Db::connect();
+        $statement = $conn->prepare("UPDATE product_images SET url = :file_name WHERE id = :image_id AND product_id = :product_id");
+        $statement->bindValue(":file_name", $imageName);
+        $statement->bindValue(":image_id", $image_id);
+        $statement->bindValue(":product_id", $product_id);
+        $statement->execute();
     }
 }
 ?>
