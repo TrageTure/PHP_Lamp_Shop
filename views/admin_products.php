@@ -20,6 +20,7 @@ if ($result['is_admin'] === 0) {
 // Fetch alle producten
 $productInstance = new Product();
 $products = $productInstance->getAllProducts();
+$outofstock = $productInstance->getOutOfStockProducts();
 ?>
 
 <!DOCTYPE html>
@@ -47,6 +48,34 @@ $products = $productInstance->getAllProducts();
         </thead>
         <tbody>
             <?php foreach ($products as $product): ?>
+                <tr>
+                    <td><?= htmlspecialchars($product['id']) ?></td>
+                    <td><?= htmlspecialchars($product['title']) ?></td>
+                    <td><?= htmlspecialchars($product['product_categories_id']) ?></td>
+                    <td>
+                        <a href="edit_product.php?id=<?= $product['id'] ?>" class="btn edit">Bewerken</a>
+                        <form action="delete_product.php" method="post" style="display:inline;">
+                            <input type="hidden" name="product_id" value="<?= $product['id'] ?>">
+                            <button type="submit" class="btn verwijder">Verwijderen</button>
+                        </form>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
+
+    <h1>Geen stock meer</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Titel</th>
+                <th>Categorie</th>
+                <th>Acties</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach ($outofstock as $product): ?>
                 <tr>
                     <td><?= htmlspecialchars($product['id']) ?></td>
                     <td><?= htmlspecialchars($product['title']) ?></td>

@@ -217,5 +217,19 @@ class Product {
         return $statement->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    //alle producten die uit geen stock meer hebben
+    public function getOutOfStockProducts() {
+        $conn = Db::connect();
+        $statement = $conn->prepare("
+            SELECT p.*, MIN(po.price) AS min_price
+            FROM products p
+            LEFT JOIN product_options po ON p.id = po.product_id
+            WHERE po.stock_amount <= 0
+            GROUP BY p.id
+        ");
+        $statement->execute();
+        return $statement->fetchAll(PDO::FETCH_ASSOC);
+    }
+
 }
 ?>
