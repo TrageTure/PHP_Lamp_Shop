@@ -17,11 +17,11 @@ class Db {
                     "mysql:host=$host;dbname=$dbname;charset=utf8mb4", // Gebruik $dbname
                     $username,
                     $password,
-                    [
-                        PDO::MYSQL_ATTR_SSL_CA => $sslCert,
-                        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-                        PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC
-                    ]
+                    // [
+                    //     PDO::MYSQL_ATTR_SSL_CA => $sslCert,
+                    //     PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+                    //     PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC
+                    // ]
                 );
                 return self::$conn;
             } catch (PDOException $e) {
